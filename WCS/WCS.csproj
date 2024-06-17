@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Conexao.cs" />
     <Compile Include="Controllers\LexmarkController.cs" />
+    <Compile Include="Controllers\Utils.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Models\Lexmark.cs" />
     <Compile Include="Program.cs" />

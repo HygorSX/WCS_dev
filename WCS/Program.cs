@@ -17,7 +17,7 @@ namespace WCS
         {
             await TestarConexao();
 
-            string ip = "192.168.211.30";
+            string ip = "192.168.222.30";
             if (TestePing(ip))
             {
                 bool isMono = VerificarTipoImpressora(ip);
@@ -59,7 +59,7 @@ namespace WCS
 
         private static bool VerificarTipoImpressora(string ip)
         {
-            string typeOid = ".1.3.6.1.2.1.43.5.1.1.16.1";
+            string typeOid = ".1.3.6.1.4.1.641.6.2.3.1.4.1";
             var snmpResults = ObterDadosSnmp(ip, new List<string> { typeOid });
             string deviceModel = snmpResults.FirstOrDefault().Value?.ToString();
             return IdentificarTipoImpressora(deviceModel);
@@ -101,20 +101,14 @@ namespace WCS
         {
             return new List<string>
             {
-                //Acrescentar e revisar as oids
-
-                ".1.3.6.1.4.1.641.6.4.2.1.1.4.1.4",
-                ".1.3.6.1.4.1.641.6.4.2.1.1.4.1.8",
-                ".1.3.6.1.4.1.641.6.4.2.1.1.4.1.10",
-                ".1.3.6.1.4.1.641.6.4.4.1.1.16.1.2",
-                ".1.3.6.1.4.1.641.6.4.4.1.1.16.1.1",
-                ".1.3.6.1.4.1.641.6.2.3.1.5.1",
-                ".1.3.6.1.4.1.641.6.4.4.1.1.6.1.2",
-                ".1.3.6.1.2.1.43.11.1.1.8.1.1", // Capacidade Toner
+                ".1.3.6.1.4.1.641.6.4.4.1.1.6.1.2", // Serial Number
+                ".1.3.6.1.2.1.43.8.2.1.14.1.1", // Fabricante Da Impressora
+                ".1.3.6.1.2.1.43.5.1.1.16.1", // Modelo Da Impressora
+                ".1.3.6.1.4.1.641.6.4.2.1.1.4.1.4", // Total Impressões
                 ".1.3.6.1.2.1.43.11.1.1.9.1.1", // Nível Toner
-                ".1.3.6.1.2.1.43.5.1.1.16.1", // Device Model
-                ".1.3.6.1.2.1.43.11.1.1.8.1.2", // Capacidade Kit Manutenção
+                ".1.3.6.1.2.1.43.11.1.1.8.1.1", // Capacidade Toner
                 ".1.3.6.1.2.1.43.11.1.1.9.1.2", // Nível Kit Manutenção
+                ".1.3.6.1.2.1.43.11.1.1.8.1.2", // Capacidade Kit Manutenção
                 ".1.3.6.1.2.1.43.16.5.1.2.1.1" // Status Da Impressora
             };
         }
@@ -125,14 +119,11 @@ namespace WCS
         {
             return new List<string>
             {
-                //Acrescentar e revisar as oids
 
                 ".1.3.6.1.2.1.43.5.1.1.17.1", // Serial Number
                 ".1.3.6.1.2.1.43.8.2.1.14.1.1", // Fabricante da Impressora
                 ".1.3.6.1.2.1.43.5.1.1.16.1", // Modelo Da Impressora 
-                //Nome da Impressora
-                ".1.3.6.1.2.1.43.10.2.1.4.1.1", // Total Páginas
-                //Total Cópias
+                ".1.3.6.1.4.1.641.6.4.2.1.1.4.1.4", // Total Impressões
                 ".1.3.6.1.2.1.43.11.1.1.9.1.4", // Nível Preto
                 ".1.3.6.1.2.1.43.11.1.1.8.1.4", // Capacidade Toner Preto
                 ".1.3.6.1.2.1.43.11.1.1.9.1.1", // Nível Ciano
@@ -174,21 +165,16 @@ namespace WCS
         {
             return new Lexmark
             {
-                //Corrigir formato dos dados
+                Serial = resultado[0],
+                DeviceManufacturer = resultado[1],
+                DeviceModel = resultado[2],
 
-                //Porta = resultado[0],
-                TotalPaginas = int.Parse(resultado[1]),
-                TotalCopias = int.Parse(resultado[2]) + int.Parse(resultado[3]),
-                //TotalUnidadeImagem = (int.Parse(resultado[3]) * 100) / 60000,
-                Serial = resultado[6],
-                //BlackCapacity = int.Parse(resultado[7]),
-                //BlackLevel = int.Parse(resultado[8]),
-                PorcentagemBlack = (int.Parse(resultado[8]) * 100) / int.Parse(resultado[7]),
-                DeviceModel = resultado[9],
-                //CapacidadeKitManutenção = int.Parse(resultado[10]),
-                //LevelKitManutenção = int.Parse(resultado[11]),
-                PorcentagemKitManutenção = (int.Parse(resultado[11]) * 100) / int.Parse(resultado[10]),
-                PrinterStatus = resultado[12]
+                QuantidadeImpressaoTotal = int.Parse(resultado[3]),
+
+                PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]),
+                PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]),
+
+                PrinterStatus = resultado[8]
             };
         }
 
@@ -201,19 +187,17 @@ namespace WCS
                 Serial = resultado[0],
                 DeviceManufacturer = resultado[1],
                 DeviceModel = resultado[2],
-                DeviceName = resultado[3],
 
-                TotalPaginas = int.Parse(resultado[4]),
-                TotalCopias = int.Parse(resultado[5]),
+                QuantidadeImpressaoTotal = int.Parse(resultado[3]),
 
-                PorcentagemBlack = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]),
-                PorcentagemCyan = (int.Parse(resultado[8]) * 100) / int.Parse(resultado[9]),
-                PorcentagemMagenta = (int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]),
-                PorcentagemYellow = (int.Parse(resultado[12]) * 100) / int.Parse(resultado[13]),
-                PorcentagemFusor = (int.Parse(resultado[14]) * 100) / int.Parse(resultado[15]),
-                PorcentagemBelt = (int.Parse(resultado[16]) * 100) / int.Parse(resultado[17]),
+                PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]),
+                PorcentagemCyan = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]),
+                PorcentagemMagenta = (int.Parse(resultado[8]) * 100) / int.Parse(resultado[9]),
+                PorcentagemYellow = (int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]),
+                PorcentagemFusor = (int.Parse(resultado[12]) * 100) / int.Parse(resultado[13]),
+                PorcentagemBelt = (int.Parse(resultado[14]) * 100) / int.Parse(resultado[15]),
 
-                PrinterStatus = resultado[17]
+                PrinterStatus = resultado[16]
             };
         }
 
@@ -228,12 +212,12 @@ namespace WCS
                 if (isMono)
                 {
                     EscreverDadosMono(lexmark, sw);
-                    EnviarDadosImpressora(lexmark);
+                    //EnviarDadosImpressora(lexmark);
                 }
                 else
                 {
                     EscreverDadosColor(lexmark, sw);
-                    EnviarDadosImpressora(lexmark);
+                    //EnviarDadosImpressora(lexmark);
                 }
             }
         }
@@ -242,37 +226,30 @@ namespace WCS
 
         private static void EscreverDadosMono(Lexmark lexmark, StreamWriter sw)
         {
-            sw.WriteLine($"Serial - {lexmark.Serial}");
-            sw.WriteLine($"Fabricante Da Impressora - {lexmark.DeviceManufacturer}");
-            sw.WriteLine($"Modelo Da Impressora - {lexmark.DeviceModel}");
-            sw.WriteLine($"Nome Da Impressora - {lexmark.DeviceName}");
-            sw.WriteLine($"Total Páginas - {lexmark.TotalPaginas}");
-            sw.WriteLine($"Total Copias - {lexmark.TotalCopias}");
-            sw.WriteLine($"Impressão Total - {lexmark.QuantidadeImpressaoTotal}");
-            sw.WriteLine($"Porcentagem Toner Black - {lexmark.PorcentagemBlack}%");
-            sw.WriteLine($"Porcentagem Kit Manutenção - {lexmark.PorcentagemKitManutenção}%");
-            sw.WriteLine($"Status - {lexmark.PrinterStatus}");
+            sw.WriteLine($"Número de Série: {lexmark.Serial}");
+            sw.WriteLine($"Fabricante Da Impressora: {lexmark.DeviceManufacturer}");
+            sw.WriteLine($"Modelo Da Impressora: {lexmark.DeviceModel}");
+            sw.WriteLine($"Quantidade Total De Impressões: {lexmark.QuantidadeImpressaoTotal}");
+            sw.WriteLine($"Porcentagem Toner Black: {lexmark.PorcentagemBlack}%");
+            sw.WriteLine($"Porcentagem Kit Manutenção: {lexmark.PorcentagemKitManutenção}%");
+            sw.WriteLine($"Status: {lexmark.PrinterStatus}");
         }
 
 
 
         private static void EscreverDadosColor(Lexmark lexmark, StreamWriter sw)
         {
-            sw.WriteLine($"Serial - {lexmark.Serial}");
-            sw.WriteLine($"Fabricante Da Impressora - {lexmark.DeviceManufacturer}");
-            sw.WriteLine($"Modelo Da Impressora - {lexmark.DeviceModel}");
-            //sw.WriteLine($"Nome Da Impressora - {lexmark.DeviceName}");
-            //sw.WriteLine($"Total Páginas - {lexmark.TotalPaginas}");
-            //sw.WriteLine($"Total Cópias - {lexmark.TotalCopias}");
-            //sw.WriteLine($"Impressão Total - {lexmark.QuantidadeImpressaoTotal}");
-            sw.WriteLine($"Porcentagem Toner Black - {lexmark.PorcentagemBlack}%");
-            sw.WriteLine($"Porcentagem Toner Cyan - {lexmark.PorcentagemCyan}%");
-            sw.WriteLine($"Porcentagem Toner Magenta - {lexmark.PorcentagemMagenta}%");
-            sw.WriteLine($"Porcentagem Toner Yellow - {lexmark.PorcentagemYellow}%");
-            sw.WriteLine($"Porcentagem Do Fusor - {lexmark.PorcentagemFusor}%");
-            sw.WriteLine($"Porcentagem Do Belt - {lexmark.PorcentagemBelt}%");
-            sw.WriteLine($"Porcentagem Do Kit De Manutenção - {lexmark.PorcentagemKitManutenção}%");
-            sw.WriteLine($"Status - {lexmark.PrinterStatus}");
+            sw.WriteLine($"Número De Série: {lexmark.Serial}");
+            sw.WriteLine($"Fabricante Da Impressora: {lexmark.DeviceManufacturer}");
+            sw.WriteLine($"Modelo Da Impressora: {lexmark.DeviceModel}");
+            sw.WriteLine($"Quantidade Total De Impressões: {lexmark.QuantidadeImpressaoTotal}");
+            sw.WriteLine($"Porcentagem Toner Black: {lexmark.PorcentagemBlack}%");
+            sw.WriteLine($"Porcentagem Toner Cyan: {lexmark.PorcentagemCyan}%");
+            sw.WriteLine($"Porcentagem Toner Magenta: {lexmark.PorcentagemMagenta}%");
+            sw.WriteLine($"Porcentagem Toner Yellow: {lexmark.PorcentagemYellow}%");
+            sw.WriteLine($"Porcentagem Do Fusor: {lexmark.PorcentagemFusor}%");
+            sw.WriteLine($"Porcentagem Do Belt: {lexmark.PorcentagemBelt}%");
+            sw.WriteLine($"Status: {lexmark.PrinterStatus}");
         }
 
 
@@ -281,7 +258,7 @@ namespace WCS
         {
             using (var db = new PrinterMonitoringContext())
             {
-                var printer = new Lexmark
+                /*var printer = new Lexmark
                 {
                     Serial = lexmark.Serial,
                     DeviceManufacturer = lexmark.DeviceManufacturer,
@@ -298,9 +275,10 @@ namespace WCS
                     PorcentagemBelt = lexmark.PorcentagemBelt,
                     PorcentagemKitManutenção = lexmark.PorcentagemKitManutenção,
                     PrinterStatus = lexmark.PrinterStatus,
-                };
+                };*/
 
-                db.PrinterMonitorings.Add(printer);
+            //db.PrinterMonitorings.Add(printer);
+            db.PrinterMonitorings.Add(lexmark);
                 db.SaveChanges();
             }
         }

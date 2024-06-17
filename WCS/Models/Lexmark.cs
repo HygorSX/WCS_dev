@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace WCS
 {
@@ -22,15 +23,11 @@ namespace WCS
         public string Serial { get; set; } //
         public string DeviceManufacturer { get; set; } //
         public string DeviceModel { get; set; } //
-        public string DeviceName { get; set; } //
-        public int TotalPaginas { get; set; } //
-        public int TotalCopias { get; set; } //
         public int QuantidadeImpressaoTotal { get; set; }//
         public int PorcentagemKitManutenção { get; set; } //
         public int PorcentagemBlack { get; set; } //
         public String MacAddress { get; set; } //
         private string _printerStatus { get; set; } //
-        public int DeviceUpTime { get; set; } //
 
 
         //=================== Color =======================
@@ -66,26 +63,50 @@ namespace WCS
             }
 
         }
-        private string HexConvert(string hex)
+
+        private bool IsHexa(string hex)
         {
-            string hexString = hex;
+            string[] arrHex = hex.Split(' ');
 
-            // Removendo os espaços em branco
-            hexString = hexString.Replace(" ", "");
-
-            // Convertendo a string hexadecimal em um array de bytes
-            byte[] bytes = new byte[hexString.Length / 2];
-            for (int i = 0; i < bytes.Length; i++)
+            for(int i = 0; i < arrHex.Count(); i++)
             {
-                bytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+                try
+                {
+                    ulong int_hex = Convert.ToUInt64(arrHex[i], 16);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-
-            // Decodificando os bytes em uma string usando a codificação UTF-8
-            string decodedString = Encoding.UTF8.GetString(bytes);
-
-            return(decodedString);
+            return true;
         }
 
-        
+        private string HexConvert(string hex)
+        {
+            if (IsHexa(hex))
+            {
+                string hexString = hex;
+
+                // Removendo os espaços em branco
+                hexString = hexString.Replace(" ", "");
+
+                // Convertendo a string hexadecimal em um array de bytes
+                byte[] bytes = new byte[hexString.Length / 2];
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    bytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+                }
+
+                // Decodificando os bytes em uma string usando a codificação UTF-8
+                string decodedString = Encoding.UTF8.GetString(bytes);
+
+                return (decodedString);
+            }
+            else
+            {
+                return hex;
+            }
+        }
     }
 }
