@@ -9,43 +9,47 @@ namespace WCS
 {
     public class Lexmark
     {
-        public string Porta { get; set; } 
+        //public string Porta { get; set; } 
+        //public string NumSerieUniImagem { get; set; }
+        //public string DeviceDescription { get; set; }
+        //public int BlackLevel { get; set; }
+        //public int BlackCapacity { get; set; }
+        //public int CapacidadeKitManutenção { get; set; }
+        //public int LevelKitManutenção { get; set; } 
+        //public int TotalUnidadeImagem { get; set; }
+
+        //==================== ALL ====================
         public string Serial { get; set; } //
-        public int TotalPaginas { get; set; } //
-        public int QuantidadeImpressaoTotal { get; set; }
-        public int TotalCopias { get; set; } //
-        public string NumSerieUniImagem { get; set; }
-        public int TotalUnidadeImagem { get; set; }
         public string DeviceManufacturer { get; set; } //
-        public int DeviceUpTime { get; set; }
         public string DeviceModel { get; set; } //
-        public string DeviceDescription { get; set; }
         public string DeviceName { get; set; } //
-        public int BlackLevel { get; set; }
-        public int BlackCapacity { get; set; }
-        public int PorcentagemBlack { get; set; } //
-        public int CapacidadeKitManutenção { get; set; }
-        public int LevelKitManutenção { get; set; } 
+        public int TotalPaginas { get; set; } //
+        public int TotalCopias { get; set; } //
+        public int QuantidadeImpressaoTotal { get; set; }//
         public int PorcentagemKitManutenção { get; set; } //
+        public int PorcentagemBlack { get; set; } //
         public String MacAddress { get; set; } //
+        private string _printerStatus { get; set; } //
+        public int DeviceUpTime { get; set; } //
+
 
         //=================== Color =======================
 
-        private string _printerStatus { get; set; } //
-        public int CyanLevel { get; set; }
-        public int CyanCapacity { get; set; }
+        //public int CyanLevel { get; set; }
+        //public int CyanCapacity { get; set; }
+        //public int YellowLevel { get; set; }
+        //public int YellowCapacity { get; set; }
+        //public int MagentaLevel { get; set; }
+        //public int MagentaCapacity { get; set; }
+        //public int PrinterFusorLevel { get; set; }
+        //public int PrinterFusorCapacity { get; set; }
+        //public int PrinterBeltLevel { get; set; }
+        //public int PrinterBeltCapacity { get; set; }
+
         public int PorcentagemCyan { get; set; } // 
-        public int YellowLevel { get; set; }
-        public int YellowCapacity { get; set; }
         public int PorcentagemYellow { get; set; } //
-        public int MagentaLevel { get; set; }
-        public int MagentaCapacity { get; set; }
         public int PorcentagemMagenta { get; set; } //
-        public int PrinterFusorLevel { get; set; }
-        public int PrinterFusorCapacity { get; set; }
         public int PorcentagemFusor { get; set; } //
-        public int PrinterBeltLevel { get; set; }
-        public int PrinterBeltCapacity { get; set; }
         public int PorcentagemBelt { get; set; } //
 
         public string PrinterStatus
@@ -81,5 +85,7 @@ namespace WCS
 
             return(decodedString);
         }
+
+        
     }
 }

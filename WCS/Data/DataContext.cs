@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace WCS.Data
 {
-    public class DataContext : DbContext
+    public class PrinterMonitoringContext : DbContext
     {
-        public DbSet<Lexmark> PrinterMonitorings { get; set; }
 
-        public DataContext() : base("name=PrinterMonitoringContext")
+        public PrinterMonitoringContext() : base("name=PrinterMonitoringContext")
         {
         }
+        public DbSet<Lexmark> PrinterMonitorings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

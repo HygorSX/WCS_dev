@@ -3,32 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\wcs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\controllers\\lexmarkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\controllers\\lexmarkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\wcs\\models\\lexmark.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\models\\lexmark.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\wcs\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\wcs\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\sql\\script.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
+      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\wcs\\sql\\script.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
       "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\sql\\script.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\wcs\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\models\\lexmark.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|solutionrelative:wcs\\models\\lexmark.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{70C72487-2870-48BF-8046-32C9AC2848A8}|WCS\\WCS.csproj|c:\\users\\hygor\\onedrive\\documentos\\wcs\\wcs\\sql\\script.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
@@ -42,11 +46,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "LexmarkController.cs",
+              "DocumentMoniker": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Controllers\\LexmarkController.cs",
+              "RelativeDocumentMoniker": "WCS\\Controllers\\LexmarkController.cs",
+              "ToolTip": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Controllers\\LexmarkController.cs",
+              "RelativeToolTip": "WCS\\Controllers\\LexmarkController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-15T00:23:17.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "App.config",
               "DocumentMoniker": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\App.config",
               "RelativeDocumentMoniker": "WCS\\App.config",
@@ -59,7 +76,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "packages.config",
               "DocumentMoniker": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\packages.config",
               "RelativeDocumentMoniker": "WCS\\packages.config",
@@ -67,8 +84,7 @@
               "RelativeToolTip": "WCS\\packages.config",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-06-13T23:15:08.583Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T23:15:08.583Z"
             },
             {
               "$type": "Document",
@@ -78,14 +94,14 @@
               "RelativeDocumentMoniker": "WCS\\Data\\DataContext.cs",
               "ToolTip": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Data\\DataContext.cs",
               "RelativeToolTip": "WCS\\Data\\DataContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T23:08:32.8Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "script.sql ",
               "DocumentMoniker": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\SQL\\script.sql",
               "RelativeDocumentMoniker": "WCS\\SQL\\script.sql",
@@ -97,39 +113,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "Lexmark.cs",
               "DocumentMoniker": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Models\\Lexmark.cs",
               "RelativeDocumentMoniker": "WCS\\Models\\Lexmark.cs",
               "ToolTip": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Models\\Lexmark.cs",
               "RelativeToolTip": "WCS\\Models\\Lexmark.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAyAAAA",
+              "ViewState": "AQIAADEAAAAAAAAAAAA2wFsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T22:31:13.853Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Conexao.cs",
               "DocumentMoniker": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Conexao.cs",
               "RelativeDocumentMoniker": "WCS\\Conexao.cs",
               "ToolTip": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Conexao.cs",
               "RelativeToolTip": "WCS\\Conexao.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAAA1wB4AAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T22:05:08.673Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Program.cs",
               "RelativeDocumentMoniker": "WCS\\Program.cs",
               "ToolTip": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS\\Program.cs",
               "RelativeToolTip": "WCS\\Program.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAHwAAAANAAAA",
+              "ViewState": "AQIAANoAAAAAAAAAAAAswOgAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T22:00:45.025Z",
               "EditorCaption": ""

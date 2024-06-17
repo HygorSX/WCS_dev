@@ -6,14 +6,15 @@ CREATE TABLE PrinterMonitoring (
     DeviceName NVARCHAR(100),
     TotalPaginas INT,
     TotalCopias INT,
+    QuantidadeTotalImpressora INT,
     PorcentagemBlack INT,
-    PorcentagemKitManutenção INT,
-    PrinterStatus NVARCHAR(50),
-    MacAddress NVARCHAR(50),
-    DataHoraMonitoramento DATETIME DEFAULT GETDATE(),
     PorcentagemCyan INT,
     PorcentagemYellow INT,
     PorcentagemMagenta INT,
     PorcentagemFusor INT,
-    PorcentagemBelt INT
+    PorcentagemBelt INT,
+    PorcentagemKitManutenção INT,
+    PrinterStatus NVARCHAR(50),
+    MacAddress NVARCHAR(50),
+    DataHoraMonitoramento DATETIME DEFAULT GETDATE()
 );
