@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WCS.Data;
+using WCS.Utilities;
 
 namespace WCS.Controllers
 {
@@ -13,8 +11,17 @@ namespace WCS.Controllers
         {
             using (var db = new PrinterMonitoringContext())
             {
-                db.DbLexmark.Add(lexmark);
-                db.SaveChanges();
+                try
+                {
+                    db.PrinterMonitorings.Add(lexmark);
+                    db.Entry(lexmark).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    Utils.Log("Dados da impressora enviados com sucesso para o banco de dados.");
+                }
+                catch (Exception ex)
+                {
+                    Utils.Log($"Erro ao enviar dados da impressora para o banco de dados: {ex.Message}");
+                }
             }
         }
     }

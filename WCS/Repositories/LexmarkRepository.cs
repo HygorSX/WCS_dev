@@ -54,21 +54,21 @@ namespace WCS.Repositories
 
 
 
-        public static Lexmark AnalisarDadosMono(string[] resultado)
+        public static Lexmark AnalisarDadosMono(string[] resultado, Lexmark imp)
         {
-            return new Lexmark
-            {
-                Serial = resultado[0],
-                DeviceManufacturer = resultado[1],
-                DeviceModel = resultado[2],
 
-                QuantidadeImpressaoTotal = int.Parse(resultado[3]),
+            imp.Serial = resultado[0];
+            imp.DeviceManufacturer = resultado[1];
+            imp.DeviceModel = resultado[2];
 
-                PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]),
-                PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]),
+            imp.QuantidadeImpressaoTotal = int.Parse(resultado[3]);
 
-                PrinterStatus = resultado[8]
-            };
+            imp.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
+            imp.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
+
+            imp.PrinterStatus = resultado[8];
+
+            return imp;
         }
 
         public static Lexmark AnalisarDadosColor(string[] resultado)

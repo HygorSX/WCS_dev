@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WCS.Controllers;
 using WCS.Repositories;
 
 namespace WCS.Utilities
@@ -67,10 +68,12 @@ namespace WCS.Utilities
 
                 if (isMono)
                 {
+                    LexmarkController.EnviarDadosLexmark(lexmark);
                     LexmarkRepository.EscreverDadosMono(lexmark, sw);
                 }
                 else
                 {
+                    LexmarkController.EnviarDadosLexmark(lexmark);
                     LexmarkRepository.EscreverDadosColor(lexmark, sw);
                 }
             }

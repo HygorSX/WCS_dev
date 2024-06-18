@@ -59,6 +59,11 @@
   <ItemGroup>
     <Compile Include="Data\Conexao.cs" />
     <Compile Include="Controllers\LexmarkController.cs" />
+    <Compile Include="Migrations\202406181723039_InitialCreate.cs" />
+    <Compile Include="Migrations\202406181723039_InitialCreate.Designer.cs">
+      <DependentUpon>202406181723039_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Models\Lexmark.cs" />
@@ -73,7 +78,11 @@
   <ItemGroup>
     <Content Include="SQL\script.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202406181723039_InitialCreate.resx">
+      <DependentUpon>202406181723039_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

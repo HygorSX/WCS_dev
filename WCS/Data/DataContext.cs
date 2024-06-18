@@ -12,13 +12,19 @@ namespace WCS.Data
 
         public PrinterMonitoringContext() : base("name=PrinterMonitoringContext")
         {
+            this.Configuration.AutoDetectChangesEnabled = true;
         }
-        public DbSet<Lexmark> DbLexmark { get; set; }
+        public DbSet<Lexmark> PrinterMonitorings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Configure your models if needed
+
+            // Configuração da entidade Lexmark
+            modelBuilder.Entity<Lexmark>()
+                .HasKey(l => l.Id); // Definindo a chave primária
+
+            // Outras configurações podem ser adicionadas aqui
         }
     }
 }

@@ -3,9 +3,6 @@ CREATE TABLE PrinterMonitoring (
     Serial NVARCHAR(50) NOT NULL,
     DeviceManufacturer NVARCHAR(100),
     DeviceModel NVARCHAR(100),
-    DeviceName NVARCHAR(100),
-    TotalPaginas INT,
-    TotalCopias INT,
     QuantidadeTotalImpressora INT,
     PorcentagemBlack INT,
     PorcentagemCyan INT,
@@ -15,6 +12,5 @@ CREATE TABLE PrinterMonitoring (
     PorcentagemBelt INT,
     PorcentagemKitManutenção INT,
     PrinterStatus NVARCHAR(50),
-    MacAddress NVARCHAR(50),
     DataHoraMonitoramento DATETIME DEFAULT GETDATE()
 );

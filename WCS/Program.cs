@@ -20,7 +20,8 @@ namespace WCS
         {
             //await TestarConexao();
 
-            string[] ip = { "192.168.222.30", "192.168.223.24", "192.168.222.26" };
+            //string[] ip = { "192.168.222.30", "192.168.223.24", "192.168.222.26" };
+            string[] ip = { "192.168.222.30" };
 
             for(int i = 0; i < ip.Length; i++) 
             {
@@ -30,7 +31,7 @@ namespace WCS
                     var snmpResults = ObterDadosSnmp(ip[i], isMono);
                     var lexmarkData = AnalisarResultadosSnmp(snmpResults, isMono);
                     Utils.SalvarResultadosEmArquivo(lexmarkData, isMono, $"C:\\WFS\\Test{i}.txt");
-                    LexmarkController.EnviarDadosLexmark(lexmarkData);
+                   // LexmarkController.EnviarDadosLexmark(lexmarkData);
                 }
             }
         }
@@ -81,10 +82,11 @@ namespace WCS
         {
             Lexmark lexmark = new Lexmark();
             string[] resultado = snmpResults.Values.Select(v => v.ToString()).ToArray();
-
+            lexmark.Id = 0;
+            lexmark.DataHoraMonitoramento = DateTime.Now;
             if (isMono)
             {
-                lexmark = LexmarkRepository.AnalisarDadosMono(resultado);
+                lexmark = LexmarkRepository.AnalisarDadosMono(resultado, lexmark);
             }
             else
             {
