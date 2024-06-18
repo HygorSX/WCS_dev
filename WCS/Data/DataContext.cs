@@ -13,7 +13,7 @@ namespace WCS.Data
         public PrinterMonitoringContext() : base("name=PrinterMonitoringContext")
         {
         }
-        public DbSet<Lexmark> PrinterMonitorings { get; set; }
+        public DbSet<Lexmark> DbLexmark { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -29,3 +29,16 @@ C:\Users\PMB\Documents\WCS_dev\WCS\obj\Debug\WCS.csproj.CoreCompileInputs.cache
 C:\Users\PMB\Documents\WCS_dev\WCS\obj\Debug\WCS.csproj.Up2Date
 C:\Users\PMB\Documents\WCS_dev\WCS\obj\Debug\WCS.exe
 C:\Users\PMB\Documents\WCS_dev\WCS\obj\Debug\WCS.pdb
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\WCS.exe.config
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\WCS.exe
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\WCS.pdb
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\EntityFramework.dll
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\SnmpSharpNet.dll
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\EntityFramework.xml
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\obj\Debug\WCS.csproj.AssemblyReference.cache
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\obj\Debug\WCS.csproj.CoreCompileInputs.cache
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\obj\Debug\WCS.csproj.Up2Date
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\obj\Debug\WCS.exe
+C:\Users\hygor\OneDrive\Documentos\WCS\WCS\obj\Debug\WCS.pdb

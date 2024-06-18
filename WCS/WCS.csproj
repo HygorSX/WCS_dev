@@ -57,13 +57,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conexao.cs" />
+    <Compile Include="Data\Conexao.cs" />
     <Compile Include="Controllers\LexmarkController.cs" />
-    <Compile Include="Controllers\Utils.cs" />
+    <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Models\Lexmark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\LexmarkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
