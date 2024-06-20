@@ -60,7 +60,7 @@ namespace WCS.Utilities
 
 
 
-        public static void SalvarResultadosEmArquivo(Lexmark lexmark, bool isMono, string filePath)
+        public static void SalvarResultadosEmArquivo(Printers lexmark, bool isMono, string filePath)
         {
             using (StreamWriter sw = new StreamWriter(filePath))
             {
@@ -93,7 +93,7 @@ namespace WCS.Utilities
                 {
                     return true; // Mono
                 }
-                else if (secondWord.StartsWith("C"))
+                else if(secondWord.StartsWith("C"))
                 {
                     return false; // Color
                 }

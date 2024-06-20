@@ -4,7 +4,7 @@ namespace WCS.Data
 {
     public class PrinterMonitoringContext : DbContext
     {
-        public DbSet<Lexmark> PrinterMonitoringTESTE { get; set; }
+        public DbSet<Printers> PrinterMonitoringTESTE { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

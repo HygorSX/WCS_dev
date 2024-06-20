@@ -6,7 +6,7 @@ namespace WCS.Controllers
 {
     public class LexmarkController
     {
-        public static void EnviarDadosLexmark(Lexmark lexmark)
+        public static void EnviarDadosLexmark(Printers lexmark)
         {
             using (var db = new PrinterMonitoringContext())
             {

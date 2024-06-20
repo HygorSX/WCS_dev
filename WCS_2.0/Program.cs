@@ -21,7 +21,6 @@ namespace WCS
         {
 
             string[] ip = { "192.168.222.30", "192.168.223.24", "192.168.222.26" };
-            //string[] ip = { "192.168.222.30" };
 
             for(int i = 0; i < ip.Length; i++) 
             {
@@ -71,27 +70,27 @@ namespace WCS
 
         private static Dictionary<Oid, AsnType> ObterDadosSnmp(string ip, bool isMono)
         {
-            List<string> oids = isMono ? LexmarkRepository.GetMonoOids() : LexmarkRepository.GetColorOids();
+            List<string> oids = isMono ? LexmarkRepository.GetMonoOidsLex() : LexmarkRepository.GetColorOidsLex();
             return ObterDadosSnmp(ip, oids);
         }
 
 
 
-        private static Lexmark AnalisarResultadosSnmp(Dictionary<Oid, AsnType> snmpResults, bool isMono)
+        private static Printers AnalisarResultadosSnmp(Dictionary<Oid, AsnType> snmpResults, bool isMono)
         {
-            Lexmark lexmark = new Lexmark();
+            Printers printer = new Printers();
             string[] resultado = snmpResults.Values.Select(v => v.ToString()).ToArray();
             //lexmark.Id = 0;
             if (isMono)
             {
-                lexmark = LexmarkRepository.AnalisarDadosMono(resultado, lexmark);
+                printer = LexmarkRepository.AnalisarDadosMonoLex(resultado, printer);
             }
             else
             {
-                lexmark = LexmarkRepository.AnalisarDadosColor(resultado, lexmark);
+                printer = LexmarkRepository.AnalisarDadosColorLex(resultado, printer);
             }
 
-            return lexmark;
+            return printer;
         }
 
 

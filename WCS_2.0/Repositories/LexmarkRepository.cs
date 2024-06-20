@@ -9,7 +9,7 @@ namespace WCS.Repositories
 {
     public class LexmarkRepository
     {
-        public static List<string> GetMonoOids()
+        public static List<string> GetMonoOidsLex()
         {
             return new List<string>
             {
@@ -25,7 +25,7 @@ namespace WCS.Repositories
             };
         }
 
-        public static List<string> GetColorOids()
+        public static List<string> GetColorOidsLex()
         {
             return new List<string>
             {
@@ -54,47 +54,47 @@ namespace WCS.Repositories
 
 
 
-        public static Lexmark AnalisarDadosMono(string[] resultado, Lexmark imp)
+        public static Printers AnalisarDadosMonoLex(string[] resultado, Printers lex)
         {
 
-            imp.Serial = resultado[0];
-            imp.DeviceManufacturer = resultado[1];
-            imp.DeviceModel = resultado[2];
+            lex.Serial = resultado[0];
+            lex.DeviceManufacturer = resultado[1];
+            lex.DeviceModel = resultado[2];
 
-            imp.QuantidadeImpressaoTotal = int.Parse(resultado[3]);
+            lex.QuantidadeImpressaoTotal = int.Parse(resultado[3]);
 
-            imp.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
-            imp.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
+            lex.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
+            lex.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
-            imp.PrinterStatus = resultado[8];
+            lex.PrinterStatus = resultado[8];
 
-            return imp;
+            return lex;
         }
 
-        public static Lexmark AnalisarDadosColor(string[] resultado, Lexmark imp)
+        public static Printers AnalisarDadosColorLex(string[] resultado, Printers lex)
         {
 
-            imp.Serial = resultado[0];
-            imp.DeviceManufacturer = resultado[1];
-            imp.DeviceModel = resultado[2];
+            lex.Serial = resultado[0];
+            lex.DeviceManufacturer = resultado[1];
+            lex.DeviceModel = resultado[2];
 
-            imp.QuantidadeImpressaoTotal = int.Parse(resultado[3]);
+            lex.QuantidadeImpressaoTotal = int.Parse(resultado[3]);
 
-            imp.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
-            imp.PorcentagemCyan = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
-            imp.PorcentagemMagenta = (int.Parse(resultado[8]) * 100) / int.Parse(resultado[9]);
-            imp.PorcentagemYellow = (int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]);
-            imp.PorcentagemFusor = (int.Parse(resultado[12]) * 100) / int.Parse(resultado[13]);
-            imp.PorcentagemBelt = (int.Parse(resultado[14]) * 100) / int.Parse(resultado[15]);
+            lex.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
+            lex.PorcentagemCyan = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
+            lex.PorcentagemMagenta = (int.Parse(resultado[8]) * 100) / int.Parse(resultado[9]);
+            lex.PorcentagemYellow = (int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]);
+            lex.PorcentagemFusor = (int.Parse(resultado[12]) * 100) / int.Parse(resultado[13]);
+            lex.PorcentagemBelt = (int.Parse(resultado[14]) * 100) / int.Parse(resultado[15]);
 
-            imp.PrinterStatus = resultado[16];
+            lex.PrinterStatus = resultado[16];
 
-            return imp;
+            return lex;
         }
 
 
 
-        public static void EscreverDadosMono(Lexmark lexmark, StreamWriter sw)
+        public static void EscreverDadosMono(Printers lexmark, StreamWriter sw)
         {
             sw.WriteLine($"Número de Série: {lexmark.Serial}");
             sw.WriteLine($"Fabricante Da Impressora: {lexmark.DeviceManufacturer}");
@@ -105,7 +105,7 @@ namespace WCS.Repositories
             sw.WriteLine($"Status: {lexmark.PrinterStatus}");
         }
 
-        public static void EscreverDadosColor(Lexmark lexmark, StreamWriter sw)
+        public static void EscreverDadosColor(Printers lexmark, StreamWriter sw)
         {
             sw.WriteLine($"Número De Série: {lexmark.Serial}");
             sw.WriteLine($"Fabricante Da Impressora: {lexmark.DeviceManufacturer}");
