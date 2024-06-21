@@ -12,6 +12,7 @@ namespace WCS.Controllers
             {
                 try
                 {
+                    
                     db.PrinterMonitoringTESTE.Add(lexmark);
                     //db.Entry(lexmark).State = System.Data.Entity.EntityState.Added;
                     db.SaveChanges();

@@ -19,8 +19,32 @@ namespace WCS
     {
         static async Task Main(string[] args)
         {
+            
+            var infoImpressoras = Utils.GetImpressoras();
+            foreach (var impressora in infoImpressoras)
+            {
+                if(impressora.Marca != "LEXMARK") { continue; }
+                if (TestePing(impressora.IP))
+                {
+                    bool isMono = Utils.VerificarMono(impressora.Suprimentos);
+                    var snmpResults = ObterDadosSnmp(impressora.IP, isMono);
+                    if(snmpResults.Count != 0)
+                    {
+                        var lexmarkData = AnalisarResultadosSnmp(snmpResults, isMono);
+                        Utils.SalvarResultadosEmArquivo(lexmarkData, isMono, $"C:\\WFS\\Test-{impressora.Id}.txt");
+                    }
+                    else
+                    {
+                        await Console.Out.WriteLineAsync($"Você não tem permissão para acessar as informações desta impressora! - {impressora.IP} - {impressora.Id}");
+                    }
+                }
+                else
+                {
+                    await Console.Out.WriteLineAsync($"Não foi possível entrar em contato com a impressora - {impressora.IP} - {impressora.Id}");
+                }
+            }
 
-            string[] ip = { "192.168.222.30", "192.168.223.24", "192.168.222.26" };
+            /*string[] ip = { "192.168.222.30", "192.168.223.24", "192.168.222.26" };
 
             for(int i = 0; i < ip.Length; i++) 
             {
@@ -31,7 +55,7 @@ namespace WCS
                     var lexmarkData = AnalisarResultadosSnmp(snmpResults, isMono);
                     Utils.SalvarResultadosEmArquivo(lexmarkData, isMono, $"C:\\WFS\\Test{i}.txt");
                 }
-            }
+            }*/
         }
 
 
