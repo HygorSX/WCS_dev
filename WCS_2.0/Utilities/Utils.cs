@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WCS.Controllers;
+using WCS.Data;
 using WCS.Repositories;
+using WCS_2._0.Controllers;
+using WCS_2._0.Repositories;
 
 namespace WCS.Utilities
 {
@@ -60,7 +63,7 @@ namespace WCS.Utilities
 
 
 
-        public static void SalvarResultadosEmArquivo(Lexmark lexmark, bool isMono, string filePath)
+        public static void SalvarResultadosEmArquivo(Printers imp, bool isMono, string filePath, dynamic marca)
         {
             using (StreamWriter sw = new StreamWriter(filePath))
             {
@@ -68,13 +71,27 @@ namespace WCS.Utilities
 
                 if (isMono)
                 {
-                    LexmarkController.EnviarDadosLexmark(lexmark);
-                    LexmarkRepository.EscreverDadosMono(lexmark, sw);
+                    if(marca == "LEXMARK")
+                    {
+                        LexmarkController.EnviarDadosLexmark(imp);
+                        LexmarkRepository.EscreverDadosMono(imp, sw);
+                    }
+                    else if(marca == "EPSON")
+                    {
+                        EpsonController.EnviarDadosEpson(imp);
+                    }
                 }
                 else
                 {
-                    LexmarkController.EnviarDadosLexmark(lexmark);
-                    LexmarkRepository.EscreverDadosColor(lexmark, sw);
+                    if(marca == "LEXMARK")
+                    {
+                        LexmarkController.EnviarDadosLexmark(imp);
+                        LexmarkRepository.EscreverDadosColor(imp, sw);
+                    }
+                    else if (marca == "EPSON")
+                    {
+                        EpsonController.EnviarDadosEpson(imp);
+                    }
                 }
             }
         }
@@ -93,7 +110,7 @@ namespace WCS.Utilities
                 {
                     return true; // Mono
                 }
-                else if (secondWord.StartsWith("C"))
+                else if(secondWord.StartsWith("C"))
                 {
                     return false; // Color
                 }
@@ -116,6 +133,50 @@ namespace WCS.Utilities
         {
             Console.WriteLine(message);
             // Adicionar log para um arquivo ou sistema de log se necessário
+        }
+
+        public static dynamic GetImpressoras()
+        {
+            using (var db = new PrinterMonitoringContext())
+            {
+                var select_tipos = db.EquipamentoTipoes
+                        .Join(db.EquipamentoMarcas, et => et.Id, em => em.EquipamentoTipoId, (et, em) => new { et, em })
+                        .Join(db.Equipamentoes, join1 => join1.em.Id, eq => eq.EquipamentoMarcaId, (join1, eq) => new { join1, eq })
+                        .Join(db.EquipamentoSecretarias, join2 => join2.eq.Id, es => es.EquipamentoId, (join2, es) => new { join2, es })
+                        .Where(busca => busca.join2.join1.et.Id > 0)
+                        .Where(busca => busca.join2.join1.et.Id == 1) // Tipo 1: Impressoras
+                        .Where(busca => busca.es.Estoque == 0 && busca.es.Inservivel == 0) // Onde estoque e inservivel for 0 (false) a impressora está em uso 
+                        .Where(busca => busca.es.Ip != "") // Trás impressoras que possuem IP
+                        .Select(s => new {
+                            Id = s.es.Id,
+                            Tipo = s.join2.join1.et.Nome,
+                            Marca = s.join2.join1.em.Nome,
+                            Modelo = s.join2.eq.Nome,
+                            IP = s.es.Ip,
+                            Suprimentos = db.EquipamentoSuprimentos
+                                            .Join(db.Equipamentoes, es => es.EquipamentoId, eq => eq.Id, (es, eq) => new { es, eq })
+                                            .Join(db.Produtoes, join1 => join1.es.ProdutoId, p => p.Id, (join1, p) => new { join1, p })
+                                            .Where(busca => busca.join1.eq.Id == s.join2.eq.Id)
+                                            .Select(s2 => s2.p)
+                                            .ToList()
+                        }).ToList();
+
+                return select_tipos;
+            }
+        }
+
+        public static bool VerificarMono(dynamic suprimentos)
+        {
+            foreach (var suprimento in suprimentos)
+            {
+                if (suprimento.Descricao.Contains("CYAN") || suprimento.Descricao.Contains("CIANO") ||
+                    suprimento.Descricao.Contains("YELLOW") || suprimento.Descricao.Contains("AMARELO") ||
+                    suprimento.Descricao.Contains("MAGENTA") || suprimento.Descricao.Contains("MAGENTA"))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

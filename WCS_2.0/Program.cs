@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using WCS.Controllers;
 using WCS.Repositories;
 using WCS.Utilities;
+using WCS_2._0.Repositories;
 
 namespace WCS
 {
@@ -19,18 +21,28 @@ namespace WCS
     {
         static async Task Main(string[] args)
         {
-
-            string[] ip = { "192.168.222.30", "192.168.223.24", "192.168.222.26" };
-            //string[] ip = { "192.168.222.30" };
-
-            for(int i = 0; i < ip.Length; i++) 
+            
+            var infoImpressoras = Utils.GetImpressoras();
+            foreach (var impressora in infoImpressoras)
             {
-                if (TestePing(ip[i]))
+                //if(impressora.Marca != "LEXMARK") { continue; }
+                if (TestePing(impressora.IP))
                 {
-                    bool isMono = VerificarTipoImpressora(ip[i]);
-                    var snmpResults = ObterDadosSnmp(ip[i], isMono);
-                    var lexmarkData = AnalisarResultadosSnmp(snmpResults, isMono);
-                    Utils.SalvarResultadosEmArquivo(lexmarkData, isMono, $"C:\\WFS\\Test{i}.txt");
+                    bool isMono = Utils.VerificarMono(impressora.Suprimentos);
+                    var snmpResults = ObterDadosSnmp(impressora.IP, isMono, impressora.Marca);
+                    if(snmpResults.Count != 0)
+                    {
+                        var impressoraData = AnalisarResultadosSnmp(snmpResults, isMono, impressora.Marca);
+                        Utils.SalvarResultadosEmArquivo(impressoraData, isMono, $"C:\\WFS\\Test-{impressora.Id}.txt", impressora.Marca);
+                    }
+                    else
+                    {
+                        await Console.Out.WriteLineAsync($"Você não tem permissão para acessar as informações desta impressora! - {impressora.IP} - {impressora.Id}");
+                    }
+                }
+                else
+                {
+                    await Console.Out.WriteLineAsync($"Não foi possível entrar em contato com a impressora - {impressora.IP} - {impressora.Id}");
                 }
             }
         }
@@ -69,29 +81,80 @@ namespace WCS
 
 
 
-        private static Dictionary<Oid, AsnType> ObterDadosSnmp(string ip, bool isMono)
+        private static Dictionary<Oid, AsnType> ObterDadosSnmp(string ip, bool isMono, dynamic marca)
         {
-            List<string> oids = isMono ? LexmarkRepository.GetMonoOids() : LexmarkRepository.GetColorOids();
+            //List<string> oids = isMono ? LexmarkRepository.GetMonoOidsLex() : LexmarkRepository.GetColorOidsLex();
+
+          
+            List<string> oids;
+
+            if (isMono)
+            {
+                if (marca == "LEXMARK")
+                {
+                    oids = LexmarkRepository.GetMonoOidsLex();
+                }
+                else if (marca == "EPSON")
+                {
+                    oids = EpsonRepository.GetMonoOidsEps();
+                }
+                else
+                {
+                    Console.WriteLine("MONO - Impressora Não Listada");
+                    oids = null;
+                }
+            }
+            else // Se não for mono, então é colorido
+            {
+                if (marca == "LEXMARK")
+                {
+                    oids = LexmarkRepository.GetColorOidsLex();
+                }
+                else if (marca == "EPSON")
+                {
+                    oids = EpsonRepository.GetColorOidsEps();
+                }
+                else
+                {
+                    Console.WriteLine("COLOR - Impressora Não Listada");
+                    oids = null;
+                }
+            }
+
             return ObterDadosSnmp(ip, oids);
         }
 
 
 
-        private static Lexmark AnalisarResultadosSnmp(Dictionary<Oid, AsnType> snmpResults, bool isMono)
+        private static Printers AnalisarResultadosSnmp(Dictionary<Oid, AsnType> snmpResults, bool isMono, dynamic marca)
         {
-            Lexmark lexmark = new Lexmark();
+            Printers printer = new Printers();
             string[] resultado = snmpResults.Values.Select(v => v.ToString()).ToArray();
             //lexmark.Id = 0;
             if (isMono)
             {
-                lexmark = LexmarkRepository.AnalisarDadosMono(resultado, lexmark);
+                if(marca == "LEXMARK")
+                {
+                    printer = LexmarkRepository.AnalisarDadosMonoLex(resultado, printer);
+                }
+                else if (marca == "EPSON")
+                {
+                    printer = EpsonRepository.AnalisarDadosMonoEps(resultado, printer);
+                }
             }
             else
             {
-                lexmark = LexmarkRepository.AnalisarDadosColor(resultado, lexmark);
+                if (marca == "LEXMARK")
+                {
+                    printer = LexmarkRepository.AnalisarDadosColorLex(resultado, printer);
+                }
+                else if(marca == "EPSON")
+                {
+                    printer = EpsonRepository.AnalisarDadosColorEps(resultado, printer);
+                }
             }
 
-            return lexmark;
+            return printer;
         }
 
 

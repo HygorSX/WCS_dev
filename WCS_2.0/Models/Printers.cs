@@ -10,7 +10,7 @@ using WCS.Utilities;
 
 namespace WCS
 {
-    public class Lexmark : Utils
+    public class Printers : Utils
     {
         //public String MacAddress { get; set; } 
         [Key]
