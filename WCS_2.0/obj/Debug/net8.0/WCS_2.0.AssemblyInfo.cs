@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WCS_2.0")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+533a59c4a42b615c7e660d3fe0be0448c81f92ac")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fd9f9bc5a04c44d419fa32883d8294ea86108e52")]
 [assembly: System.Reflection.AssemblyProductAttribute("WCS_2.0")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WCS_2.0")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
