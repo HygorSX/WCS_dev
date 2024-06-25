@@ -63,7 +63,9 @@ namespace WCS.Utilities
 
 
 
+
         public static void SalvarResultadosEmArquivo(Printers imp, bool isMono, string filePath, dynamic marca)
+
         {
             using (StreamWriter sw = new StreamWriter(filePath))
             {
