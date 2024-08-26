@@ -33,7 +33,7 @@ namespace WCS_2._0.Repositories
         {
             return new List<string>
             {
-                ".1.3.6.1.2.1.43.5.1.1.17.1", // Serial Number
+                ".1.3.6.1.4.1.1248.1.2.2.1.1.1.5.1", // Serial Number
                 // Inserir Fabricante Manualmentes
                 ".1.3.6.1.2.1.25.3.2.1.3.1", // Modelo Da Impressora 
                 ".1.3.6.1.2.1.43.10.2.1.4.1.1", // Impressões Coloridas
@@ -57,16 +57,23 @@ namespace WCS_2._0.Repositories
         public static Printers AnalisarDadosMonoEps(string[] resultado, Printers eps)
         {
 
-            eps.Serial = resultado[0];
+            eps.SerialUniImage = resultado[0];
             eps.DeviceManufacturer = "EPSON";
             eps.DeviceModel = resultado[1];
 
-            eps.QuantidadeImpressaoTotal = int.Parse(resultado[2] + resultado[3]);
+            eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]) + int.Parse(resultado[3]);
 
             eps.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
             //eps.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
             //eps.PrinterStatus = resultado[8];
+            eps.PrinterStatus = "";
+
+            eps.SerialImpressora = "";
+
+            eps.PrinterModel = "";
+
+            eps.Tipo = "MONO";
 
             return eps;
         }
@@ -74,11 +81,11 @@ namespace WCS_2._0.Repositories
         public static Printers AnalisarDadosColorEps(string[] resultado, Printers eps)
         {
 
-            eps.Serial = resultado[0];
+            eps.SerialUniImage = resultado[0];
             eps.DeviceManufacturer = "EPSON";
             eps.DeviceModel = resultado[1];
 
-            eps.QuantidadeImpressaoTotal = int.Parse(resultado[2] + resultado[3]);
+            eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]) + int.Parse(resultado[3]);
 
             eps.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
             eps.PorcentagemCyan = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
@@ -86,8 +93,13 @@ namespace WCS_2._0.Repositories
             eps.PorcentagemYellow = (int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]);
             //eps.PorcentagemFusor = (int.Parse(resultado[12]) * 100) / int.Parse(resultado[13]);
             //eps.PorcentagemBelt = (int.Parse(resultado[14]) * 100) / int.Parse(resultado[15]);
-
+            eps.PrinterStatus = "";
             //eps.PrinterStatus = resultado[16];
+            eps.SerialImpressora = resultado[0];
+
+            eps.PrinterModel = resultado[1];
+
+            eps.Tipo = "COLOR";
 
             return eps;
         }

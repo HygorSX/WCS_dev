@@ -13,7 +13,7 @@ namespace WCS.Repositories
         {
             return new List<string>
             {
-                ".1.3.6.1.4.1.641.6.4.4.1.1.6.1.2", // Serial Number
+                ".1.3.6.1.4.1.641.6.4.4.1.1.6.1.2", // Serial Number Unidade De Imagem
                 ".1.3.6.1.2.1.43.8.2.1.14.1.1", // Fabricante Da Impressora
                 ".1.3.6.1.2.1.43.5.1.1.16.1", // Modelo Da Impressora
                 ".1.3.6.1.4.1.641.6.4.2.1.1.4.1.4", // Total Impressões
@@ -21,7 +21,9 @@ namespace WCS.Repositories
                 ".1.3.6.1.2.1.43.11.1.1.8.1.1", // Capacidade Toner
                 ".1.3.6.1.2.1.43.11.1.1.9.1.2", // Nível Kit Manutenção
                 ".1.3.6.1.2.1.43.11.1.1.8.1.2", // Capacidade Kit Manutenção
-                ".1.3.6.1.2.1.43.16.5.1.2.1.1" // Status Da Impressora
+                ".1.3.6.1.2.1.43.16.5.1.2.1.1", // Status Da Impressora
+                ".1.3.6.1.4.1.641.2.1.2.1.6.1", // Serial Number Impressora 
+                ".1.3.6.1.4.1.641.6.2.3.1.4.1" // Modelo Da Impressora - NÃO EDITÁVEL
             };
         }
 
@@ -30,9 +32,9 @@ namespace WCS.Repositories
             return new List<string>
             {
 
-                ".1.3.6.1.2.1.43.5.1.1.17.1", // Serial Number
+                ".1.3.6.1.2.1.43.5.1.1.17.1", // Serial Number Unidade De Imagem
                 ".1.3.6.1.2.1.43.8.2.1.14.1.1", // Fabricante da Impressora
-                ".1.3.6.1.2.1.43.5.1.1.16.1", // Modelo Da Impressora 
+                ".1.3.6.1.2.1.43.5.1.1.16.1", // Modelo Da Impressora - EDITÁVEL
                 ".1.3.6.1.4.1.641.6.4.2.1.1.4.1.4", // Total Impressões
                 ".1.3.6.1.2.1.43.11.1.1.9.1.4", // Nível Preto
                 ".1.3.6.1.2.1.43.11.1.1.8.1.4", // Capacidade Toner Preto
@@ -46,7 +48,9 @@ namespace WCS.Repositories
                 ".1.3.6.1.2.1.43.11.1.1.8.1.6", // Capacidade do fusor da impressora
                 ".1.3.6.1.2.1.43.11.1.1.9.1.7", // Nível Printer Belt
                 ".1.3.6.1.2.1.43.11.1.1.8.1.7", // Capacidade Printer Belt
-                ".1.3.6.1.2.1.43.16.5.1.2.1.1" // Status Da Impressora
+                ".1.3.6.1.2.1.43.16.5.1.2.1.1", // Status Da Impressora
+                ".1.3.6.1.4.1.641.2.1.2.1.6.1", // Serial Number Impressora
+                ".1.3.6.1.4.1.641.6.2.3.1.4.1" // Modelo Da Impressora - NÃO EDITÁVEL
             };
         }
 
@@ -57,7 +61,7 @@ namespace WCS.Repositories
         public static Printers AnalisarDadosMonoLex(string[] resultado, Printers lex)
         {
 
-            lex.Serial = resultado[0];
+            lex.SerialUniImage = resultado[0];
             lex.DeviceManufacturer = resultado[1];
             lex.DeviceModel = resultado[2];
 
@@ -68,13 +72,19 @@ namespace WCS.Repositories
 
             lex.PrinterStatus = resultado[8];
 
+            lex.SerialImpressora = resultado[9];
+
+            lex.PrinterModel = resultado[10];
+
+            lex.Tipo = "MONO";
+
             return lex;
         }
 
         public static Printers AnalisarDadosColorLex(string[] resultado, Printers lex)
         {
 
-            lex.Serial = resultado[0];
+            lex.SerialUniImage = resultado[0];
             lex.DeviceManufacturer = resultado[1];
             lex.DeviceModel = resultado[2];
 
@@ -89,35 +99,13 @@ namespace WCS.Repositories
 
             lex.PrinterStatus = resultado[16];
 
+            lex.SerialImpressora = resultado[17];
+
+            lex.PrinterModel = resultado[18];
+
+            lex.Tipo = "COLOR";
+
             return lex;
-        }
-
-
-
-        public static void EscreverDadosMono(Printers lexmark, StreamWriter sw)
-        {
-            sw.WriteLine($"Número de Série: {lexmark.Serial}");
-            sw.WriteLine($"Fabricante Da Impressora: {lexmark.DeviceManufacturer}");
-            sw.WriteLine($"Modelo Da Impressora: {lexmark.DeviceModel}");
-            sw.WriteLine($"Quantidade Total De Impressões: {lexmark.QuantidadeImpressaoTotal}");
-            sw.WriteLine($"Porcentagem Toner Black: {lexmark.PorcentagemBlack}%");
-            sw.WriteLine($"Porcentagem Kit Manutenção: {lexmark.PorcentagemKitManutenção}%");
-            sw.WriteLine($"Status: {lexmark.PrinterStatus}");
-        }
-
-        public static void EscreverDadosColor(Printers lexmark, StreamWriter sw)
-        {
-            sw.WriteLine($"Número De Série: {lexmark.Serial}");
-            sw.WriteLine($"Fabricante Da Impressora: {lexmark.DeviceManufacturer}");
-            sw.WriteLine($"Modelo Da Impressora: {lexmark.DeviceModel}");
-            sw.WriteLine($"Quantidade Total De Impressões: {lexmark.QuantidadeImpressaoTotal}");
-            sw.WriteLine($"Porcentagem Toner Black: {lexmark.PorcentagemBlack}%");
-            sw.WriteLine($"Porcentagem Toner Cyan: {lexmark.PorcentagemCyan}%");
-            sw.WriteLine($"Porcentagem Toner Magenta: {lexmark.PorcentagemMagenta}%");
-            sw.WriteLine($"Porcentagem Toner Yellow: {lexmark.PorcentagemYellow}%");
-            sw.WriteLine($"Porcentagem Do Fusor: {lexmark.PorcentagemFusor}%");
-            sw.WriteLine($"Porcentagem Do Belt: {lexmark.PorcentagemBelt}%");
-            sw.WriteLine($"Status: {lexmark.PrinterStatus}");
         }
     }
 }

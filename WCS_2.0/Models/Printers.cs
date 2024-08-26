@@ -15,7 +15,7 @@ namespace WCS
         //public String MacAddress { get; set; } 
         [Key]
         public int Id { get; set; }
-        public string Serial { get; set; }
+        public string SerialUniImage { get; set; }
         public string DeviceManufacturer { get; set; }
         public string DeviceModel { get; set; }
         public int QuantidadeImpressaoTotal { get; set; }
@@ -27,6 +27,9 @@ namespace WCS
         public int PorcentagemMagenta { get; set; }
         public int PorcentagemFusor { get; set; }
         public int PorcentagemBelt { get; set; }
+        public string SerialImpressora { get; set; }
+        public string PrinterModel { get; set; }
+        public string Tipo { get; set; }
         //public string PrinterStatus { get; set; }
         public DateTime DataHoraDeBusca { get; set; } = DateTime.Now;
 

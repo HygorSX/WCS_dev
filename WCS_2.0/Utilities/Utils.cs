@@ -63,8 +63,7 @@ namespace WCS.Utilities
 
 
 
-
-        public static void SalvarResultadosEmArquivo(Printers imp, bool isMono, string filePath, dynamic marca)
+        public static void SalvarResultados(Printers imp, bool isMono, string filePath, dynamic marca)
 
         {
             using (StreamWriter sw = new StreamWriter(filePath))
@@ -76,64 +75,49 @@ namespace WCS.Utilities
                     if(marca == "LEXMARK")
                     {
                         LexmarkController.EnviarDadosLexmark(imp);
-                        LexmarkRepository.EscreverDadosMono(imp, sw);
+                        //LexmarkRepository.EscreverDadosMono(imp, sw);
                     }
                     else if(marca == "EPSON")
                     {
                         EpsonController.EnviarDadosEpson(imp);
                     }
+                    else if(marca == "SAMSUNG")
+                    {
+                        SamsungController.EnviarDadosSamsung(imp);
+                    }
+                    else if(marca == "BROTHER")
+                    {
+                        BrotherController.EnviarDadosBrother(imp);
+                    }
                 }
                 else
                 {
-                    if(marca == "LEXMARK")
+                    if (marca == "LEXMARK")
                     {
                         LexmarkController.EnviarDadosLexmark(imp);
-                        LexmarkRepository.EscreverDadosColor(imp, sw);
+                        //LexmarkRepository.EscreverDadosColor(imp, sw);
                     }
                     else if (marca == "EPSON")
                     {
                         EpsonController.EnviarDadosEpson(imp);
                     }
+                    else if (marca == "SAMSUNG")
+                    {
+                        SamsungController.EnviarDadosSamsung(imp);
+                    }
+                    else if (marca == "BROTHER")
+                    {
+                        BrotherController.EnviarDadosBrother(imp);
+                    }
                 }
             }
-        }
-
-
-
-        public static bool IdentificarTipoImpressora(string type)
-        {
-            string cleanedInput = type.Replace("String =", "").Trim();
-            string[] words = cleanedInput.Split(' ');
-
-            if (words.Length >= 2)
-            {
-                string secondWord = words[1];
-                if (secondWord.StartsWith("M"))
-                {
-                    return true; // Mono
-                }
-                else if(secondWord.StartsWith("C"))
-                {
-                    return false; // Color
-                }
-                else
-                {
-                    Log("A segunda palavra não começa com 'M' ou 'C'.");
-                }
-            }
-            else
-            {
-                Log("A string não contém palavras suficientes.");
-            }
-
-            return true; // Default to false (Color)
         }
 
 
 
         public static void Log(string message)
         {
-            Console.WriteLine(message);
+            Console.Write(message);
             // Adicionar log para um arquivo ou sistema de log se necessário
         }
 

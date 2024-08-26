@@ -2771,23 +2771,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hygor\\.nuget\\packages\\": {},
+    "C:\\Users\\PMB\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS_2.0\\WCS_2.0.csproj",
+      "projectUniqueName": "C:\\Users\\PMB\\Documents\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
       "projectName": "WCS_2.0",
-      "projectPath": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS_2.0\\WCS_2.0.csproj",
-      "packagesPath": "C:\\Users\\hygor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS_2.0\\obj\\",
+      "projectPath": "C:\\Users\\PMB\\Documents\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
+      "packagesPath": "C:\\Users\\PMB\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PMB\\Documents\\WCS_dev\\WCS_2.0\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hygor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PMB\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2796,6 +2796,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2853,12 +2854,6 @@
     }
   },
   "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema ao ler o arquivo de cache C:\\Users\\hygor\\OneDrive\\Documentos\\WCS\\WCS_2.0\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    },
     {
       "code": "NU1701",
       "level": "Warning",

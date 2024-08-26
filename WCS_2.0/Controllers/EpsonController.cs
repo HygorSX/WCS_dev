@@ -19,12 +19,14 @@ namespace WCS_2._0.Controllers
                 try
                 {
                     db.PrinterMonitoringTESTE.Add(epson);
-                    //db.Entry(lexmark).State = System.Data.Entity.EntityState.Added;
                     db.SaveChanges();
-                    Utils.Log("Dados da impressora enviados com sucesso para o banco de dados.");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Utils.Log("Dados da impressora EPSON enviados com sucesso para o banco de dados. - ");
                 }
                 catch (DbUpdateException ex)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Erro ao enviar dados da impressora para o banco de dados: " + ex.Message);
                     if (ex.InnerException != null)
                     {
@@ -37,6 +39,7 @@ namespace WCS_2._0.Controllers
                 }
                 catch (Exception ex)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Erro inesperado: " + ex.Message);
                     if (ex.InnerException != null)
                     {
