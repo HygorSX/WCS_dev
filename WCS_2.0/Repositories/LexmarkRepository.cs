@@ -68,7 +68,7 @@ namespace WCS.Repositories
             lex.QuantidadeImpressaoTotal = int.Parse(resultado[3]);
 
             lex.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
-            lex.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
+            lex.PorcentagemKitManutencao = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
             lex.PrinterStatus = resultado[8];
 

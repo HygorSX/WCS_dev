@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WCS.Data;
 using WCS.Utilities;
+using WCS_2._0.Models;
+using System;
+using System.Linq;
 
 namespace WCS.Controllers
 {
@@ -12,11 +15,23 @@ namespace WCS.Controllers
             {
                 try
                 {
-                    db.PrinterMonitoringTESTE.Add(lexmark);
-                    db.SaveChanges();
+                    var existingPrinter = db.PrinterMonitoringTESTE
+                        .FirstOrDefault(p => p.Ip == lexmark.Ip);
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Utils.Log("Dados da impressora LEXMARK enviados com sucesso para o banco de dados. - ");
+                    if (existingPrinter == null)
+                    {
+                        // Adiciona a impressora se ainda não existir na tabela
+                        db.PrinterMonitoringTESTE.Add(lexmark);
+                        db.SaveChanges();
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Utils.Log("Dados da impressora LEXMARK enviados com sucesso para o banco de dados. - ");
+                    }
+                    else
+                    {
+                        // Se a impressora já existir, registre as alterações no log
+                        SaveChangesInLogs(db, existingPrinter.Id, lexmark);
+                    }
                 }
                 catch (DbUpdateException ex)
                 {
@@ -41,6 +56,51 @@ namespace WCS.Controllers
                     }
                 }
             }
+        }
+
+        private static void SaveChangesInLogs(PrinterMonitoringContext db, int printerId, Printers lexmark)
+        {
+            var lastLog = db.PrinterStatusLogs
+                .Where(l => l.PrinterId == printerId)
+                .OrderByDescending(l => l.DataHoraDeBusca)
+                .FirstOrDefault();
+
+            if (lastLog == null || HasChanges(lastLog, lexmark))
+            {
+                var newLog = new PrinterStatusLogs
+                {
+                    PrinterId = printerId,
+                    QuantidadeImpressaoTotal = lexmark.QuantidadeImpressaoTotal,
+                    PorcentagemBlack = lexmark.PorcentagemBlack,
+                    PorcentagemCyan = lexmark.PorcentagemCyan,
+                    PorcentagemYellow = lexmark.PorcentagemYellow,
+                    PorcentagemMagenta = lexmark.PorcentagemMagenta,
+                    PorcentagemFusor = lexmark.PorcentagemFusor,
+                    PorcentagemBelt = lexmark.PorcentagemBelt,
+                    PorcentagemKitManutencao = lexmark.PorcentagemKitManutencao,
+                    PrinterStatus = lexmark.PrinterStatus,
+                    DataHoraDeBusca = DateTime.Now,
+                };
+
+                db.PrinterStatusLogs.Add(newLog);
+                db.SaveChanges();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Utils.Log("Alterações na impressora LEXMARK registradas com sucesso no banco de dados. - ");
+            }
+        }
+
+        private static bool HasChanges(PrinterStatusLogs lastLog, Printers lexmark)
+        {
+            return lastLog.QuantidadeImpressaoTotal != lexmark.QuantidadeImpressaoTotal ||
+                   lastLog.PorcentagemBlack != lexmark.PorcentagemBlack ||
+                   lastLog.PorcentagemCyan != lexmark.PorcentagemCyan ||
+                   lastLog.PorcentagemYellow != lexmark.PorcentagemYellow ||
+                   lastLog.PorcentagemMagenta != lexmark.PorcentagemMagenta ||
+                   lastLog.PorcentagemFusor != lexmark.PorcentagemFusor ||
+                   lastLog.PorcentagemBelt != lexmark.PorcentagemBelt ||
+                   lastLog.PorcentagemKitManutencao != lexmark.PorcentagemKitManutencao ||
+                   lastLog.PrinterStatus != lexmark.PrinterStatus;
         }
     }
 }

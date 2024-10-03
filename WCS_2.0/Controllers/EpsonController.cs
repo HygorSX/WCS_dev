@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WCS.Data;
 using WCS.Utilities;
 using WCS;
+using WCS_2._0.Models;
 
 namespace WCS_2._0.Controllers
 {
@@ -18,11 +16,23 @@ namespace WCS_2._0.Controllers
             {
                 try
                 {
-                    db.PrinterMonitoringTESTE.Add(epson);
-                    db.SaveChanges();
+                    var existingPrinter = db.PrinterMonitoringTESTE
+                        .FirstOrDefault(p => p.Ip == epson.Ip);
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Utils.Log("Dados da impressora EPSON enviados com sucesso para o banco de dados. - ");
+                    if (existingPrinter == null)
+                    {
+                        // Adiciona a impressora se ainda não existir na tabela
+                        db.PrinterMonitoringTESTE.Add(epson);
+                        db.SaveChanges();
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Utils.Log("Dados da impressora EPSON enviados com sucesso para o banco de dados. - ");
+                    }
+                    else
+                    {
+                        // Se a impressora já existir, registre as alterações no log
+                        SaveChangesInLogs(db, existingPrinter.Id, epson);
+                    }
                 }
                 catch (DbUpdateException ex)
                 {
@@ -47,6 +57,51 @@ namespace WCS_2._0.Controllers
                     }
                 }
             }
+        }
+
+        private static void SaveChangesInLogs(PrinterMonitoringContext db, int printerId, Printers epson)
+        {
+            var lastLog = db.PrinterStatusLogs
+                .Where(l => l.PrinterId == printerId)
+                .OrderByDescending(l => l.DataHoraDeBusca)
+                .FirstOrDefault();
+
+            if (lastLog == null || HasChanges(lastLog, epson))
+            {
+                var newLog = new PrinterStatusLogs
+                {
+                    PrinterId = printerId,
+                    QuantidadeImpressaoTotal = epson.QuantidadeImpressaoTotal,
+                    PorcentagemBlack = epson.PorcentagemBlack,
+                    PorcentagemCyan = epson.PorcentagemCyan,
+                    PorcentagemYellow = epson.PorcentagemYellow,
+                    PorcentagemMagenta = epson.PorcentagemMagenta,
+                    PorcentagemFusor = epson.PorcentagemFusor,
+                    PorcentagemBelt = epson.PorcentagemBelt,
+                    PorcentagemKitManutencao = epson.PorcentagemKitManutencao,
+                    PrinterStatus = epson.PrinterStatus,
+                    DataHoraDeBusca = DateTime.Now,
+                };
+
+                db.PrinterStatusLogs.Add(newLog);
+                db.SaveChanges();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Utils.Log("Alterações na impressora EPSON registradas com sucesso no banco de dados. - ");
+            }
+        }
+
+        private static bool HasChanges(PrinterStatusLogs lastLog, Printers epson)
+        {
+            return lastLog.QuantidadeImpressaoTotal != epson.QuantidadeImpressaoTotal ||
+                   lastLog.PorcentagemBlack != epson.PorcentagemBlack ||
+                   lastLog.PorcentagemCyan != epson.PorcentagemCyan ||
+                   lastLog.PorcentagemYellow != epson.PorcentagemYellow ||
+                   lastLog.PorcentagemMagenta != epson.PorcentagemMagenta ||
+                   lastLog.PorcentagemFusor != epson.PorcentagemFusor ||
+                   lastLog.PorcentagemBelt != epson.PorcentagemBelt ||
+                   lastLog.PorcentagemKitManutencao != epson.PorcentagemKitManutencao ||
+                   lastLog.PrinterStatus != epson.PrinterStatus;
         }
     }
 }

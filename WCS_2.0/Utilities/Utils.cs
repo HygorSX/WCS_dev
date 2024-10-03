@@ -139,6 +139,7 @@ namespace WCS.Utilities
                             Marca = s.join2.join1.em.Nome,
                             Modelo = s.join2.eq.Nome,
                             IP = s.es.Ip,
+                            Patrimonio = s.es.Patrimonio,
                             Suprimentos = db.EquipamentoSuprimentos
                                             .Join(db.Equipamentoes, es => es.EquipamentoId, eq => eq.Id, (es, eq) => new { es, eq })
                                             .Join(db.Produtoes, join1 => join1.es.ProdutoId, p => p.Id, (join1, p) => new { join1, p })

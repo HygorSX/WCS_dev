@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WCS.Data;
 using WCS.Utilities;
 using WCS;
+using WCS_2._0.Models;
 
 namespace WCS_2._0.Controllers
 {
@@ -18,11 +19,21 @@ namespace WCS_2._0.Controllers
             {
                 try
                 {
-                    db.PrinterMonitoringTESTE.Add(brother);
-                    db.SaveChanges();
+                    var existingPrinter = db.PrinterMonitoringTESTE
+                        .FirstOrDefault(p => p.Ip == brother.Ip);
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Utils.Log("Dados da impressora SAMSUNG enviados com sucesso para o banco de dados. - ");
+                    if(existingPrinter != null)
+                    {
+                        db.PrinterMonitoringTESTE.Add(brother);
+                        db.SaveChanges();
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Utils.Log("Dados da impressora BROTHER enviados com sucesso para o banco de dados. - ");
+                    }
+                    else
+                    {
+                        SaveChangesInLogs(db, existingPrinter.Id, brother);
+                    }
                 }
                 catch (DbUpdateException ex)
                 {
@@ -47,6 +58,51 @@ namespace WCS_2._0.Controllers
                     }
                 }
             }
+        }
+
+        private static void SaveChangesInLogs(PrinterMonitoringContext db, int printerId, Printers brother)
+        {
+            var lastLog = db.PrinterStatusLogs
+                .Where(l => l.PrinterId == printerId)
+                .OrderByDescending(l => l.DataHoraDeBusca)
+                .FirstOrDefault();
+
+            if(lastLog == null || HasChanges(lastLog, brother))
+            {
+                var newLog = new PrinterStatusLogs
+                {
+                    PrinterId = printerId,
+                    QuantidadeImpressaoTotal = brother.QuantidadeImpressaoTotal,
+                    PorcentagemBlack = brother.PorcentagemBlack,
+                    PorcentagemCyan = brother.PorcentagemCyan,
+                    PorcentagemYellow = brother.PorcentagemYellow,
+                    PorcentagemMagenta = brother.PorcentagemMagenta,
+                    PorcentagemFusor = brother.PorcentagemFusor,
+                    PorcentagemBelt = brother.PorcentagemBelt,
+                    PorcentagemKitManutencao = brother.PorcentagemKitManutencao,
+                    PrinterStatus = brother.PrinterStatus,
+                    DataHoraDeBusca = DateTime.Now,
+                };
+
+                db.PrinterStatusLogs.Add(newLog);
+                db.SaveChanges();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Utils.Log("Alterações na impressora BROTHER registradas com sucesso no banco de dados. - ");
+            }
+        }
+
+        private static bool HasChanges(PrinterStatusLogs lastLog, Printers brother)
+        {
+            return lastLog.QuantidadeImpressaoTotal != brother.QuantidadeImpressaoTotal ||
+                   lastLog.PorcentagemBlack != brother.PorcentagemBlack ||
+                   lastLog.PorcentagemCyan != brother.PorcentagemCyan ||
+                   lastLog.PorcentagemYellow != brother.PorcentagemYellow ||
+                   lastLog.PorcentagemMagenta != brother.PorcentagemMagenta ||
+                   lastLog.PorcentagemFusor != brother.PorcentagemFusor ||
+                   lastLog.PorcentagemBelt != brother.PorcentagemBelt ||
+                   lastLog.PorcentagemKitManutencao != brother.PorcentagemKitManutencao ||
+                   lastLog.PrinterStatus != brother.PrinterStatus;
         }
     }
 }

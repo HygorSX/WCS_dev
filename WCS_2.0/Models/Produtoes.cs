@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WCS_2._0.Models
 {
-    public class Produtoes
+    public class Produtoes 
     {
         public int Id { get; set; }
         public string Descricao { get; set; }

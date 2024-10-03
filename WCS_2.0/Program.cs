@@ -31,7 +31,7 @@ namespace WCS
             foreach (var impressora in infoImpressoras)
             {
                 //if(impressora.Marca != "LEXMARK" && impressora.Marca != "EPSON") { continue; }
-                if (impressora.Marca != "SAMSUNG") { continue; }
+                //if (impressora.IP != "192.168.222.30") { continue; }
                 if (TestePing(impressora.IP))
                 {
                     bool isMono = Utils.VerificarMono(impressora.Suprimentos);
@@ -39,6 +39,8 @@ namespace WCS
                     if(snmpResults.Count != 0)
                     {
                         var impressoraData = AnalisarResultadosSnmp(snmpResults, isMono, impressora.Marca);
+                        impressoraData.Patrimonio = impressora.Patrimonio;
+                        impressoraData.Ip = impressora.IP;
                         Utils.SalvarResultados(impressoraData, isMono, $"C:\\WFS\\Test-{impressora.Id}.txt", impressora.Marca);
                         await Console.Out.WriteAsync($"{impressora.IP}\n");
                     }
@@ -137,6 +139,13 @@ namespace WCS
                     Console.WriteLine("COLOR - Impressora Não Listada");
                     oids = null;
                 }
+            }
+
+            if (oids == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Nenhum OID encontrado para a marca: {marca}");
+                return new Dictionary<Oid, AsnType>();
             }
 
             return ObterDadosSnmp(ip, oids);
