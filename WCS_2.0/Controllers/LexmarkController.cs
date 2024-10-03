@@ -60,38 +60,56 @@ namespace WCS.Controllers
 
         private static void SaveChangesInLogs(PrinterMonitoringContext db, int printerId, Printers lexmark)
         {
+            if (!HasChanges(db, printerId, lexmark))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"A impressora {lexmark.Patrimonio} já foi salva hoje ou não existe alterações.\n");
+                return; // Não faz nada se já foi salva hoje
+            }
+
             var lastLog = db.PrinterStatusLogs
                 .Where(l => l.PrinterId == printerId)
                 .OrderByDescending(l => l.DataHoraDeBusca)
                 .FirstOrDefault();
 
-            if (lastLog == null || HasChanges(lastLog, lexmark))
+            var newLog = new PrinterStatusLogs
             {
-                var newLog = new PrinterStatusLogs
-                {
-                    PrinterId = printerId,
-                    QuantidadeImpressaoTotal = lexmark.QuantidadeImpressaoTotal,
-                    PorcentagemBlack = lexmark.PorcentagemBlack,
-                    PorcentagemCyan = lexmark.PorcentagemCyan,
-                    PorcentagemYellow = lexmark.PorcentagemYellow,
-                    PorcentagemMagenta = lexmark.PorcentagemMagenta,
-                    PorcentagemFusor = lexmark.PorcentagemFusor,
-                    PorcentagemBelt = lexmark.PorcentagemBelt,
-                    PorcentagemKitManutencao = lexmark.PorcentagemKitManutencao,
-                    PrinterStatus = lexmark.PrinterStatus,
-                    DataHoraDeBusca = DateTime.Now,
-                };
+                PrinterId = printerId,
+                QuantidadeImpressaoTotal = lexmark.QuantidadeImpressaoTotal,
+                PorcentagemBlack = lexmark.PorcentagemBlack,
+                PorcentagemCyan = lexmark.PorcentagemCyan,
+                PorcentagemYellow = lexmark.PorcentagemYellow,
+                PorcentagemMagenta = lexmark.PorcentagemMagenta,
+                PorcentagemFusor = lexmark.PorcentagemFusor,
+                PorcentagemBelt = lexmark.PorcentagemBelt,
+                PorcentagemKitManutencao = lexmark.PorcentagemKitManutencao,
+                PrinterStatus = lexmark.PrinterStatus,
+                DataHoraDeBusca = DateTime.Now,
+            };
 
-                db.PrinterStatusLogs.Add(newLog);
-                db.SaveChanges();
+            db.PrinterStatusLogs.Add(newLog);
+            db.SaveChanges();
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Utils.Log("Alterações na impressora LEXMARK registradas com sucesso no banco de dados. - ");
-            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Utils.Log("Alterações na impressora LEXMARK registradas com sucesso no banco de dados. - ");
         }
 
-        private static bool HasChanges(PrinterStatusLogs lastLog, Printers lexmark)
+        private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers lexmark)
         {
+            // Verifica se já existe um log para hoje
+            if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
+            {
+                return false; // Retorna false se já foi coletado hoje
+            }
+
+            // Se não houver log para hoje, verifica se os dados mudaram
+            var lastLog = db.PrinterStatusLogs
+                .Where(l => l.PrinterId == printerId)
+                .OrderByDescending(l => l.DataHoraDeBusca)
+                .FirstOrDefault();
+
+            if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
+
             return lastLog.QuantidadeImpressaoTotal != lexmark.QuantidadeImpressaoTotal ||
                    lastLog.PorcentagemBlack != lexmark.PorcentagemBlack ||
                    lastLog.PorcentagemCyan != lexmark.PorcentagemCyan ||

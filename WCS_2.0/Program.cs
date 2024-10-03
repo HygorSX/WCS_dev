@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using WCS.Controllers;
 using WCS.Repositories;
 using WCS.Utilities;
-using WCS_2._0.Controllers;
+using WCS.Controllers;
 using WCS_2._0.Repositories;
 
 namespace WCS

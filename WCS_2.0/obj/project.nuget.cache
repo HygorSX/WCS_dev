@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IOK3iHRJzacWmU6ZOWOQsJcRcS8q84HpSmFOwq3ldjAXlgPyRvCTxVPXRtRFpT0A6Vng6gY2KDV0b8Rh7y6y8Q==",
+  "dgSpecHash": "3bEKb79Sbhc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\PMB\\Documents\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
+  "projectFilePath": "C:\\Windows\\System32\\impressora\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PMB\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\PMB\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -61,38 +61,51 @@ namespace WCS_2._0.Controllers
 
         private static void SaveChangesInLogs(PrinterMonitoringContext db, int printerId, Printers samsung)
         {
+            if (!HasChanges(db, printerId, samsung))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"A impressora {samsung.Patrimonio} já foi salva hoje.\n");
+                return; // Não faz nada se já foi salva hoje
+            }
+
+            var newLog = new PrinterStatusLogs
+            {
+                PrinterId = printerId,
+                QuantidadeImpressaoTotal = samsung.QuantidadeImpressaoTotal,
+                PorcentagemBlack = samsung.PorcentagemBlack,
+                PorcentagemCyan = samsung.PorcentagemCyan,
+                PorcentagemYellow = samsung.PorcentagemYellow,
+                PorcentagemMagenta = samsung.PorcentagemMagenta,
+                PorcentagemFusor = samsung.PorcentagemFusor,
+                PorcentagemBelt = samsung.PorcentagemBelt,
+                PorcentagemKitManutencao = samsung.PorcentagemKitManutencao,
+                PrinterStatus = samsung.PrinterStatus,
+                DataHoraDeBusca = DateTime.Now,
+            };
+
+            db.PrinterStatusLogs.Add(newLog);
+            db.SaveChanges();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Utils.Log("Alterações na impressora SAMSUNG registradas com sucesso no banco de dados. - ");
+        }
+
+        private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers samsung)
+        {
+            // Verifica se já existe um log para hoje
+            if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
+            {
+                return false; // Retorna false se já foi coletado hoje
+            }
+
+            // Se não houver log para hoje, verifica se os dados mudaram
             var lastLog = db.PrinterStatusLogs
                 .Where(l => l.PrinterId == printerId)
                 .OrderByDescending(l => l.DataHoraDeBusca)
                 .FirstOrDefault();
 
-            if (lastLog == null || HasChanges(lastLog, samsung))
-            {
-                var newLog = new PrinterStatusLogs
-                {
-                    PrinterId = printerId,
-                    QuantidadeImpressaoTotal = samsung.QuantidadeImpressaoTotal,
-                    PorcentagemBlack = samsung.PorcentagemBlack,
-                    PorcentagemCyan = samsung.PorcentagemCyan,
-                    PorcentagemYellow = samsung.PorcentagemYellow,
-                    PorcentagemMagenta = samsung.PorcentagemMagenta,
-                    PorcentagemFusor = samsung.PorcentagemFusor,
-                    PorcentagemBelt = samsung.PorcentagemBelt,
-                    PorcentagemKitManutencao = samsung.PorcentagemKitManutencao,
-                    PrinterStatus = samsung.PrinterStatus,
-                    DataHoraDeBusca = DateTime.Now,
-                };
+            if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
 
-                db.PrinterStatusLogs.Add(newLog);
-                db.SaveChanges();
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Utils.Log("Alterações na impressora SAMSUNG registradas com sucesso no banco de dados. - ");
-            }
-        }
-
-        private static bool HasChanges(PrinterStatusLogs lastLog, Printers samsung)
-        {
             return lastLog.QuantidadeImpressaoTotal != samsung.QuantidadeImpressaoTotal ||
                    lastLog.PorcentagemBlack != samsung.PorcentagemBlack ||
                    lastLog.PorcentagemCyan != samsung.PorcentagemCyan ||
