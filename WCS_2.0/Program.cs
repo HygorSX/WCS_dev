@@ -36,7 +36,7 @@ namespace WCS
             foreach (var impressora in infoImpressoras)
             {
                 // Processo de ping e SNMP permanece o mesmo
-                //if (impressora.IP != "192.168.222.30") continue;
+                if (impressora.IP != "192.168.14.10") continue;
 
                 if (TestePing((string)impressora.IP))
                 {
