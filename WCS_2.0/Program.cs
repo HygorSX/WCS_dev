@@ -36,7 +36,7 @@ namespace WCS
             foreach (var impressora in infoImpressoras)
             {
                 // Processo de ping e SNMP permanece o mesmo
-                if (impressora.IP != "192.168.14.10") continue;
+                if (impressora.IP != "192.168.222.30") continue;
 
                 if (TestePing((string)impressora.IP))
                 {
@@ -50,6 +50,7 @@ namespace WCS
                         impressoraData.AbrSecretaria = impressora.AbrSecretaria;
                         impressoraData.Depto = impressora.Depto;
                         impressoraData.Ip = impressora.IP;
+                        impressoraData.InstituicaoId = impressora.InstituicaoId;
 
                         if (impressoraData.PorcentagemBlack <= 20)
                         {

@@ -19,10 +19,12 @@ namespace WCS_2._0.Controllers
                     var existingPrinter = db.PrinterMonitoringTESTE
                         .FirstOrDefault(p => p.Ip == samsung.Ip);
 
-                    if (existingPrinter == null)
+                    if (existingPrinter != null)
                     {
 
-                        db.PrinterMonitoringTESTE.Add(samsung);
+                        //db.PrinterMonitoringTESTE.Add(samsung);
+                        existingPrinter.InstituicaoId = samsung.InstituicaoId;
+                        Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;

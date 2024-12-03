@@ -22,7 +22,9 @@ namespace WCS.Controllers
                     {
 
                         //db.PrinterMonitoringTESTE.Add(lexmark);
-                        existingPrinter.SerialTonnerPreto = lexmark.SerialTonnerPreto;
+                        //existingPrinter.SerialTonnerPreto = lexmark.SerialTonnerPreto;
+                        existingPrinter.InstituicaoId = lexmark.InstituicaoId;
+                        Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;

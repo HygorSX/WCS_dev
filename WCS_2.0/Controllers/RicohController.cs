@@ -22,11 +22,14 @@ namespace WCS_2._0.Controllers
                     var existingPrinter = db.PrinterMonitoringTESTE
                         .FirstOrDefault(p => p.Ip == ricoh.Ip);
 
-                    if (existingPrinter == null)
+                    if (existingPrinter != null)
                     {
 
-                        db.PrinterMonitoringTESTE.Add(ricoh);
+                        //db.PrinterMonitoringTESTE.Add(ricoh);
+                        existingPrinter.InstituicaoId = ricoh.InstituicaoId;
+                        Console.WriteLine(existingPrinter);
                         db.SaveChanges();
+
 
                         Console.ForegroundColor = ConsoleColor.Green;
                         Utils.Log("Dados da impressora RICOH enviados com sucesso para o banco de dados. - ");

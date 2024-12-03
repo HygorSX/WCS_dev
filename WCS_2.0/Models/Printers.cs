@@ -37,6 +37,7 @@ namespace WCS
         public string Secretaria { get; set; }
         public string AbrSecretaria { get; set; }
         public string Depto { get; set; }
+        public int InstituicaoId { get; set; }
         public int EmailAbaixo20pc { get; set; }
         //public string PrinterStatus { get; set; }
         public DateTime DataHoraDeBusca { get; set; } = DateTime.Now;

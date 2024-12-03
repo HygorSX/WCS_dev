@@ -19,10 +19,13 @@ namespace WCS_2._0.Controllers
                     var existingPrinter = db.PrinterMonitoringTESTE
                         .FirstOrDefault(p => p.Ip == epson.Ip);
 
-                    if (existingPrinter == null)
+                    if (existingPrinter != null)
                     {
 
-                        db.PrinterMonitoringTESTE.Add(epson);
+                        //db.PrinterMonitoringTESTE.Add(epson);
+                        //existingPrinter.SerialTonnerPreto = epson.SerialTonnerPreto;
+                        existingPrinter.InstituicaoId = epson.InstituicaoId;
+                        Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;

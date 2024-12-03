@@ -22,10 +22,13 @@ namespace WCS_2._0.Controllers
                     var existingPrinter = db.PrinterMonitoringTESTE
                         .FirstOrDefault(p => p.Ip == brother.Ip);
 
-                    if (existingPrinter == null)
+                    if (existingPrinter != null)
                     {
 
-                        db.PrinterMonitoringTESTE.Add(brother);
+                        //db.PrinterMonitoringTESTE.Add(brother);
+                        //existingPrinter.SerialTonnerPreto = brother.SerialTonnerPreto;
+                        existingPrinter.InstituicaoId = brother.InstituicaoId;
+                        Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;

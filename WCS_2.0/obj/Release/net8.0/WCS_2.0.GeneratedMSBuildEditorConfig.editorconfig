@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WCS_2._0
-build_property.ProjectDir = C:\WCS_dev\WCS_2.0\
+build_property.ProjectDir = C:\Users\PMB\Documents\projeto_wcs_03dezembro\WCS_dev\WCS_2.0\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
