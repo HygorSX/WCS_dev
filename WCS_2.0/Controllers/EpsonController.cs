@@ -21,7 +21,7 @@ namespace WCS_2._0.Controllers
 
                     if (existingPrinter == null)
                     {
-                        // Adiciona a impressora se ainda não existir na tabela
+
                         db.PrinterMonitoringTESTE.Add(epson);
                         db.SaveChanges();
 
@@ -78,7 +78,7 @@ namespace WCS_2._0.Controllers
                 PorcentagemMagenta = epson.PorcentagemMagenta,
                 PorcentagemFusor = epson.PorcentagemFusor,
                 PorcentagemBelt = epson.PorcentagemBelt,
-                PorcentagemKitManutencao = epson.PorcentagemKitManutencao,
+                PorcentagemUnidadeImagem = epson.PorcentagemUnidadeImagem,
                 PrinterStatus = epson.PrinterStatus,
                 DataHoraDeBusca = DateTime.Now,
             };
@@ -113,7 +113,7 @@ namespace WCS_2._0.Controllers
                    lastLog.PorcentagemMagenta != epson.PorcentagemMagenta ||
                    lastLog.PorcentagemFusor != epson.PorcentagemFusor ||
                    lastLog.PorcentagemBelt != epson.PorcentagemBelt ||
-                   lastLog.PorcentagemKitManutencao != epson.PorcentagemKitManutencao ||
+                   lastLog.PorcentagemUnidadeImagem != epson.PorcentagemUnidadeImagem ||
                    lastLog.PrinterStatus != epson.PrinterStatus;
         }
     }

@@ -14,51 +14,72 @@ using System.Threading.Tasks;
 using WCS.Controllers;
 using WCS.Repositories;
 using WCS.Utilities;
-using WCS.Controllers;
 using WCS_2._0.Repositories;
 
 namespace WCS
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            
-            var infoImpressoras = Utils.GetImpressoras();
+            TimeSpan _startHour = new TimeSpan(11, 59, 0);
+            TimeSpan _endHour = new TimeSpan(13, 0, 0);
+            var now = DateTime.Now.TimeOfDay;
             var stopwatch = new Stopwatch();
+            List<Printers> printers = new List<Printers>();
 
             stopwatch.Start();
+
+            // Agora usamos a função assíncrona para obter as impressoras
+            var infoImpressoras =  Utils.GetImpressoras();
+
             foreach (var impressora in infoImpressoras)
             {
-                //if(impressora.Marca != "LEXMARK" && impressora.Marca != "EPSON") { continue; }
-                //if (impressora.IP != "192.168.222.30") { continue; }
-                if (TestePing(impressora.IP))
+                // Processo de ping e SNMP permanece o mesmo
+                //if (impressora.IP != "192.168.222.30") continue;
+
+                if (TestePing((string)impressora.IP))
                 {
                     bool isMono = Utils.VerificarMono(impressora.Suprimentos);
                     var snmpResults = ObterDadosSnmp(impressora.IP, isMono, impressora.Marca);
-                    if(snmpResults.Count != 0)
+                    if (snmpResults.Count != 0)
                     {
-                        var impressoraData = AnalisarResultadosSnmp(snmpResults, isMono, impressora.Marca);
+                        Printers impressoraData = AnalisarResultadosSnmp(snmpResults, isMono, impressora.Marca);
                         impressoraData.Patrimonio = impressora.Patrimonio;
+                        impressoraData.Secretaria = impressora.Secretaria;
+                        impressoraData.AbrSecretaria = impressora.AbrSecretaria;
+                        impressoraData.Depto = impressora.Depto;
                         impressoraData.Ip = impressora.IP;
+
+                        if (impressoraData.PorcentagemBlack <= 20)
+                        {
+                            printers.Add(impressoraData);
+                        }
                         Utils.SalvarResultados(impressoraData, isMono, $"C:\\WFS\\Test-{impressora.Id}.txt", impressora.Marca);
-                        await Console.Out.WriteAsync($"{impressora.IP}\n");
+                        Console.Out.WriteAsync($"{impressora.IP}\n");
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        await Console.Out.WriteLineAsync($"Você não tem permissão para acessar as informações desta impressora! - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
+                        Console.Out.WriteLineAsync($"Você não tem permissão para acessar as informações desta impressora! - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
                     }
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    await Console.Out.WriteLineAsync($"Não foi possível entrar em contato com a impressora - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
+                    Console.Out.WriteLineAsync($"Não foi possível entrar em contato com a impressora - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
                 }
             }
+
+            if (printers.Count > 0 && (now >= _startHour && now < _endHour))
+            {
+                Utils.EnviarEmailTonnerMinimo(printers);
+            }
+
             stopwatch.Stop();
             Console.WriteLine($"Tempo de execução: {stopwatch.Elapsed}");
         }
+
 
 
 
@@ -110,6 +131,10 @@ namespace WCS
                 {
                     oids = BrotherRepository.GetMonoOidsBth();
                 }
+                else if (marca == "RICOH")
+                {
+                    oids = RicohRepository.GetMonoOidsRic();
+                }
                 else
                 {
                     Console.WriteLine("COLOR - Impressora Não Listada");
@@ -133,6 +158,10 @@ namespace WCS
                 else if (marca == "BROTHER")
                 {
                     oids = BrotherRepository.GetColorOidsBth();
+                }
+                else if (marca == "RICOH")
+                {
+                    oids = RicohRepository.GetColorOidsRic();
                 }
                 else
                 {
@@ -176,6 +205,10 @@ namespace WCS
                 {
                     printer = BrotherRepository.AnalisarDadosMonoBth(resultado, printer);
                 }
+                else if (marca == "RICOH")
+                {
+                    printer = RicohRepository.AnalisarDadosMonoRic(resultado, printer);
+                }
             }
             else
             {
@@ -194,6 +227,10 @@ namespace WCS
                 else if (marca == "BROTHER")
                 {
                     printer = BrotherRepository.AnalisarDadosColorBth(resultado, printer);
+                }
+                else if (marca == "RICOH")
+                {
+                    printer = RicohRepository.AnalisarDadosColorRic(resultado, printer);
                 }
             }
 

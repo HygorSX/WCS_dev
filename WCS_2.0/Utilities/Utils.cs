@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using WCS.Controllers;
 using WCS.Data;
 using WCS.Repositories;
 using WCS_2._0.Controllers;
+using WCS_2._0.Models;
 using WCS_2._0.Repositories;
 
 namespace WCS.Utilities
@@ -72,22 +74,26 @@ namespace WCS.Utilities
 
                 if (isMono)
                 {
-                    if(marca == "LEXMARK")
+                    if (marca == "LEXMARK")
                     {
                         LexmarkController.EnviarDadosLexmark(imp);
                         //LexmarkRepository.EscreverDadosMono(imp, sw);
                     }
-                    else if(marca == "EPSON")
+                    else if (marca == "EPSON")
                     {
                         EpsonController.EnviarDadosEpson(imp);
                     }
-                    else if(marca == "SAMSUNG")
+                    else if (marca == "SAMSUNG")
                     {
                         SamsungController.EnviarDadosSamsung(imp);
                     }
-                    else if(marca == "BROTHER")
+                    else if (marca == "BROTHER")
                     {
                         BrotherController.EnviarDadosBrother(imp);
+                    }
+                    else if (marca == "RICOH")
+                    {
+                        RicohController.EnviarDadosRicoh(imp);
                     }
                 }
                 else
@@ -109,6 +115,10 @@ namespace WCS.Utilities
                     {
                         BrotherController.EnviarDadosBrother(imp);
                     }
+                    else if (marca == "RICOH")
+                    {
+                        RicohController.EnviarDadosRicoh(imp);
+                    }
                 }
             }
         }
@@ -121,36 +131,31 @@ namespace WCS.Utilities
             // Adicionar log para um arquivo ou sistema de log se necessário
         }
 
-        public static dynamic GetImpressoras()
+        public static List<Equipamento> GetImpressoras()
         {
-            using (var db = new PrinterMonitoringContext())
+            var url = "https://www1.barueri.sp.gov.br/citestoque/EquipamentoSecretaria/GetListaImpServicePrinter"; // Substitua pela URL real da sua API
+            using (HttpClient client = new HttpClient())
             {
-                var select_tipos = db.EquipamentoTipoes
-                        .Join(db.EquipamentoMarcas, et => et.Id, em => em.EquipamentoTipoId, (et, em) => new { et, em })
-                        .Join(db.Equipamentoes, join1 => join1.em.Id, eq => eq.EquipamentoMarcaId, (join1, eq) => new { join1, eq })
-                        .Join(db.EquipamentoSecretarias, join2 => join2.eq.Id, es => es.EquipamentoId, (join2, es) => new { join2, es })
-                        .Where(busca => busca.join2.join1.et.Id > 0)
-                        .Where(busca => busca.join2.join1.et.Id == 1) // Tipo 1: Impressoras
-                        .Where(busca => busca.es.Estoque == 0 && busca.es.Inservivel == 0) // Onde estoque e inservivel for 0 (false) a impressora está em uso 
-                        .Where(busca => busca.es.Ip != "") // Trás impressoras que possuem IP
-                        .Select(s => new {
-                            Id = s.es.Id,
-                            Tipo = s.join2.join1.et.Nome,
-                            Marca = s.join2.join1.em.Nome,
-                            Modelo = s.join2.eq.Nome,
-                            IP = s.es.Ip,
-                            Patrimonio = s.es.Patrimonio,
-                            Suprimentos = db.EquipamentoSuprimentos
-                                            .Join(db.Equipamentoes, es => es.EquipamentoId, eq => eq.Id, (es, eq) => new { es, eq })
-                                            .Join(db.Produtoes, join1 => join1.es.ProdutoId, p => p.Id, (join1, p) => new { join1, p })
-                                            .Where(busca => busca.join1.eq.Id == s.join2.eq.Id)
-                                            .Select(s2 => s2.p)
-                                            .ToList()
-                        }).ToList();
+                try
+                {
+                    // Realiza a requisição GET na API de forma síncrona
+                    var response = client.GetStringAsync(url).Result;
 
-                return select_tipos;
+                    // Deserializa a resposta da API para um formato de lista de objetos
+                    var impressoras = JsonConvert.DeserializeObject<List<Equipamento>>(response);
+
+                    return impressoras;
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Erro ao acessar a API: {ex.Message}");
+                    return new List<Equipamento>(); // Retorna uma lista vazia em caso de erro
+                }
             }
         }
+
+
 
         public static bool VerificarMono(dynamic suprimentos)
         {
@@ -164,6 +169,78 @@ namespace WCS.Utilities
                 }
             }
             return true;
+        }
+
+        //-------------------------------------------------------------------------------------
+        //sendo usado em outra classe
+        //
+        //função que envia o email
+        // Patrimonio - Modelo - Secretaria - Departamento - % Toner
+
+        public static bool EnviarEmailTonnerMinimo(List<Printers> imp)
+        {
+            string Date = DateTime.Now.ToString("dd-MMMM-yyyy HH:mm:ss");
+            string emailPrincipal = "cit.rmanso@barueri.sp.gov.br";
+            string msn = $@"
+                        <html>
+                        <body>
+                            <h3>Relatório de Impressoras - Tonner Preto Abaixo de 20%</h3>
+                            <p>Prezado,</p>
+                            <p>Segue abaixo a relação das impressoras com nível de toner preto abaixo de 20%, conforme registrado em <strong>{Date}</strong>.</p>
+                            <br/>
+                            <table style='border-collapse: collapse; width: 100%;'>
+                                <thead>
+                                    <tr>
+                                        <th style='border: 1px solid #dddddd; padding: 8px;'>Patrimônio</th>
+                                        <th style='border: 1px solid #dddddd; padding: 8px;'>Modelo</th>
+                                        <th style='border: 1px solid #dddddd; padding: 8px;'>% Toner Preto</th>
+                                        <th style='border: 1px solid #dddddd; padding: 8px;'>% Unidade De Imagem</th>
+                                        <th style='border: 1px solid #dddddd; padding: 8px;'>Local</th>
+                                    </tr>
+                                </thead>
+                                <tbody>";
+
+                                    foreach (var impressora in imp)
+                                    {
+                                        msn += $@"
+                                    <tr>
+                                        <td style='border: 1px solid #dddddd; padding: 8px; text-align: center;'>{impressora.Patrimonio}</td>
+                                        <td style='border: 1px solid #dddddd; padding: 8px; text-align: center;'>{impressora.PrinterModel}</td>
+                                        <td style='border: 1px solid #dddddd; padding: 8px; text-align: center;'>{impressora.PorcentagemBlack}%</td>
+                                        <td style='border: 1px solid #dddddd; padding: 8px; text-align: center;'>{impressora.PorcentagemUnidadeImagem}%</td>
+                                        <td style='border: 1px solid #dddddd; padding: 8px; text-align: center;'>{impressora.AbrSecretaria} - {impressora.Depto}</td>   
+                                    </tr>";
+                                    }
+
+                                    msn += @"
+                                </tbody>
+                            </table>
+                            <br/>
+                            <p>Atenciosamente,<br/>
+                                Equipe de Suporte Técnico<br/>
+                                CIT Barueri</p>
+                            <hr/>
+                            <p><small>Este é um email automático. Por favor, não responda a este email.</small></p>
+                        </body>
+                        </html>";
+
+            Email email = new Email();
+            email.ToEmail = emailPrincipal;
+            email.CcEmail = "cit.vinicius@barueri.sp.gov.br;cit.arjona@barueri.sp.gov.br";
+            email.Subject = "Tonners Abaixo de 20%";
+            //email.CcEmail = emailCopia;
+
+            email.Body = msn;
+            try
+            {
+                email.Send(email);
+                return true;
+
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
     }
 }

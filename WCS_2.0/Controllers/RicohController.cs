@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using WCS.Data;
 using WCS.Utilities;
 using WCS;
@@ -8,30 +11,29 @@ using WCS_2._0.Models;
 
 namespace WCS_2._0.Controllers
 {
-    public class SamsungController
+    public class RicohController
     {
-        public static void EnviarDadosSamsung(Printers samsung)
+        public static void EnviarDadosRicoh(Printers ricoh)
         {
             using (var db = new PrinterMonitoringContext())
             {
                 try
                 {
                     var existingPrinter = db.PrinterMonitoringTESTE
-                        .FirstOrDefault(p => p.Ip == samsung.Ip);
+                        .FirstOrDefault(p => p.Ip == ricoh.Ip);
 
                     if (existingPrinter == null)
                     {
 
-                        db.PrinterMonitoringTESTE.Add(samsung);
+                        db.PrinterMonitoringTESTE.Add(ricoh);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Utils.Log("Dados da impressora SAMSUNG enviados com sucesso para o banco de dados. - ");
+                        Utils.Log("Dados da impressora RICOH enviados com sucesso para o banco de dados. - ");
                     }
                     else
                     {
-                        // Se a impressora já existir, registre as alterações no log
-                        SaveChangesInLogs(db, existingPrinter.Id, samsung);
+                        SaveChangesInLogs(db, existingPrinter.Id, ricoh);
                     }
                 }
                 catch (DbUpdateException ex)
@@ -59,27 +61,27 @@ namespace WCS_2._0.Controllers
             }
         }
 
-        private static void SaveChangesInLogs(PrinterMonitoringContext db, int printerId, Printers samsung)
+        private static void SaveChangesInLogs(PrinterMonitoringContext db, int printerId, Printers ricoh)
         {
-            if (!HasChanges(db, printerId, samsung))
+            if (!HasChanges(db, printerId, ricoh))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"A impressora {samsung.Patrimonio} já foi salva hoje.\n");
+                Console.WriteLine($"A impressora {ricoh.Patrimonio} já foi salva hoje.\n");
                 return; // Não faz nada se já foi salva hoje
             }
 
             var newLog = new PrinterStatusLogs
             {
                 PrinterId = printerId,
-                QuantidadeImpressaoTotal = samsung.QuantidadeImpressaoTotal,
-                PorcentagemBlack = samsung.PorcentagemBlack,
-                PorcentagemCyan = samsung.PorcentagemCyan,
-                PorcentagemYellow = samsung.PorcentagemYellow,
-                PorcentagemMagenta = samsung.PorcentagemMagenta,
-                PorcentagemFusor = samsung.PorcentagemFusor,
-                PorcentagemBelt = samsung.PorcentagemBelt,
-                PorcentagemUnidadeImagem = samsung.PorcentagemUnidadeImagem,
-                PrinterStatus = samsung.PrinterStatus,
+                QuantidadeImpressaoTotal = ricoh.QuantidadeImpressaoTotal,
+                PorcentagemBlack = ricoh.PorcentagemBlack,
+                PorcentagemCyan = ricoh.PorcentagemCyan,
+                PorcentagemYellow = ricoh.PorcentagemYellow,
+                PorcentagemMagenta = ricoh.PorcentagemMagenta,
+                PorcentagemFusor = ricoh.PorcentagemFusor,
+                PorcentagemBelt = ricoh.PorcentagemBelt,
+                PorcentagemUnidadeImagem = ricoh.PorcentagemUnidadeImagem,
+                PrinterStatus = ricoh.PrinterStatus,
                 DataHoraDeBusca = DateTime.Now,
             };
 
@@ -87,10 +89,10 @@ namespace WCS_2._0.Controllers
             db.SaveChanges();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Utils.Log("Alterações na impressora SAMSUNG registradas com sucesso no banco de dados. - ");
+            Utils.Log("Alterações na impressora RICOH registradas com sucesso no banco de dados. - ");
         }
 
-        private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers samsung)
+        private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers ricoh)
         {
             // Verifica se já existe um log para hoje
             if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
@@ -106,15 +108,15 @@ namespace WCS_2._0.Controllers
 
             if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
 
-            return lastLog.QuantidadeImpressaoTotal != samsung.QuantidadeImpressaoTotal ||
-                   lastLog.PorcentagemBlack != samsung.PorcentagemBlack ||
-                   lastLog.PorcentagemCyan != samsung.PorcentagemCyan ||
-                   lastLog.PorcentagemYellow != samsung.PorcentagemYellow ||
-                   lastLog.PorcentagemMagenta != samsung.PorcentagemMagenta ||
-                   lastLog.PorcentagemFusor != samsung.PorcentagemFusor ||
-                   lastLog.PorcentagemBelt != samsung.PorcentagemBelt ||
-                   lastLog.PorcentagemUnidadeImagem != samsung.PorcentagemUnidadeImagem ||
-                   lastLog.PrinterStatus != samsung.PrinterStatus;
+            return lastLog.QuantidadeImpressaoTotal != ricoh.QuantidadeImpressaoTotal ||
+                   lastLog.PorcentagemBlack != ricoh.PorcentagemBlack ||
+                   lastLog.PorcentagemCyan != ricoh.PorcentagemCyan ||
+                   lastLog.PorcentagemYellow != ricoh.PorcentagemYellow ||
+                   lastLog.PorcentagemMagenta != ricoh.PorcentagemMagenta ||
+                   lastLog.PorcentagemFusor != ricoh.PorcentagemFusor ||
+                   lastLog.PorcentagemBelt != ricoh.PorcentagemBelt ||
+                   lastLog.PorcentagemUnidadeImagem != ricoh.PorcentagemUnidadeImagem ||
+                   lastLog.PrinterStatus != ricoh.PrinterStatus;
         }
     }
 }

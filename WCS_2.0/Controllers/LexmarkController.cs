@@ -18,10 +18,11 @@ namespace WCS.Controllers
                     var existingPrinter = db.PrinterMonitoringTESTE
                         .FirstOrDefault(p => p.Ip == lexmark.Ip);
 
-                    if (existingPrinter == null)
+                    if (existingPrinter != null)
                     {
-                        // Adiciona a impressora se ainda não existir na tabela
-                        db.PrinterMonitoringTESTE.Add(lexmark);
+
+                        //db.PrinterMonitoringTESTE.Add(lexmark);
+                        existingPrinter.SerialTonnerPreto = lexmark.SerialTonnerPreto;
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -82,8 +83,10 @@ namespace WCS.Controllers
                 PorcentagemMagenta = lexmark.PorcentagemMagenta,
                 PorcentagemFusor = lexmark.PorcentagemFusor,
                 PorcentagemBelt = lexmark.PorcentagemBelt,
+                PorcentagemUnidadeImagem = lexmark.PorcentagemUnidadeImagem,
                 PorcentagemKitManutencao = lexmark.PorcentagemKitManutencao,
                 PrinterStatus = lexmark.PrinterStatus,
+                SerialTonnerPreto = lexmark.SerialTonnerPreto,
                 DataHoraDeBusca = DateTime.Now,
             };
 
@@ -117,7 +120,9 @@ namespace WCS.Controllers
                    lastLog.PorcentagemMagenta != lexmark.PorcentagemMagenta ||
                    lastLog.PorcentagemFusor != lexmark.PorcentagemFusor ||
                    lastLog.PorcentagemBelt != lexmark.PorcentagemBelt ||
+                   lastLog.PorcentagemUnidadeImagem != lexmark.PorcentagemUnidadeImagem ||
                    lastLog.PorcentagemKitManutencao != lexmark.PorcentagemKitManutencao ||
+                   lastLog.SerialTonnerPreto != lexmark.SerialTonnerPreto ||
                    lastLog.PrinterStatus != lexmark.PrinterStatus;
         }
     }

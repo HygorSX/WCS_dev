@@ -61,9 +61,9 @@ namespace WCS_2._0.Repositories
             eps.DeviceManufacturer = "EPSON";
             eps.DeviceModel = resultado[1];
 
-            eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]) + int.Parse(resultado[3]);
+            eps.QuantidadeImpressaoTotal = Math.Abs(int.Parse(resultado[2])) + Math.Abs(int.Parse(resultado[3]));
 
-            eps.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
+            eps.PorcentagemBlack = (Math.Abs(int.Parse(resultado[4])) * 100) / Math.Abs(int.Parse(resultado[5]));
             //eps.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
             //eps.PrinterStatus = resultado[8];
@@ -85,12 +85,12 @@ namespace WCS_2._0.Repositories
             eps.DeviceManufacturer = "EPSON";
             eps.DeviceModel = resultado[1];
 
-            eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]) + int.Parse(resultado[3]);
+            eps.QuantidadeImpressaoTotal = Math.Abs(int.Parse(resultado[2]));
 
-            eps.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
-            eps.PorcentagemCyan = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
-            eps.PorcentagemMagenta = (int.Parse(resultado[8]) * 100) / int.Parse(resultado[9]);
-            eps.PorcentagemYellow = (int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]);
+            eps.PorcentagemBlack = (Math.Abs(int.Parse(resultado[4])) * 100) / Math.Abs(int.Parse(resultado[5]));
+            eps.PorcentagemCyan = (Math.Abs(int.Parse(resultado[6])) * 100) / Math.Abs(int.Parse(resultado[7]));
+            eps.PorcentagemMagenta = (Math.Abs(int.Parse(resultado[8])) * 100) / Math.Abs(int.Parse(resultado[9]));
+            eps.PorcentagemYellow = (Math.Abs(int.Parse(resultado[10])) * 100) / Math.Abs(int.Parse(resultado[11]));
             //eps.PorcentagemFusor = (int.Parse(resultado[12]) * 100) / int.Parse(resultado[13]);
             //eps.PorcentagemBelt = (int.Parse(resultado[14]) * 100) / int.Parse(resultado[15]);
             eps.PrinterStatus = "";

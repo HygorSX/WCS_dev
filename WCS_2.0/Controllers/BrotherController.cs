@@ -22,8 +22,9 @@ namespace WCS_2._0.Controllers
                     var existingPrinter = db.PrinterMonitoringTESTE
                         .FirstOrDefault(p => p.Ip == brother.Ip);
 
-                    if (existingPrinter != null)
+                    if (existingPrinter == null)
                     {
+
                         db.PrinterMonitoringTESTE.Add(brother);
                         db.SaveChanges();
 
@@ -79,7 +80,7 @@ namespace WCS_2._0.Controllers
                 PorcentagemMagenta = brother.PorcentagemMagenta,
                 PorcentagemFusor = brother.PorcentagemFusor,
                 PorcentagemBelt = brother.PorcentagemBelt,
-                PorcentagemKitManutencao = brother.PorcentagemKitManutencao,
+                PorcentagemUnidadeImagem = brother.PorcentagemUnidadeImagem,
                 PrinterStatus = brother.PrinterStatus,
                 DataHoraDeBusca = DateTime.Now,
             };
@@ -114,7 +115,7 @@ namespace WCS_2._0.Controllers
                    lastLog.PorcentagemMagenta != brother.PorcentagemMagenta ||
                    lastLog.PorcentagemFusor != brother.PorcentagemFusor ||
                    lastLog.PorcentagemBelt != brother.PorcentagemBelt ||
-                   lastLog.PorcentagemKitManutencao != brother.PorcentagemKitManutencao ||
+                   lastLog.PorcentagemUnidadeImagem != brother.PorcentagemUnidadeImagem ||
                    lastLog.PrinterStatus != brother.PrinterStatus;
         }
     }

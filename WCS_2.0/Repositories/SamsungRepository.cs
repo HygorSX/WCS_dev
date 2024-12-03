@@ -51,7 +51,7 @@ namespace WCS_2._0.Repositories
 
             eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]);
 
-            eps.PorcentagemBlack = int.Parse(resultado[3]);
+            eps.PorcentagemBlack = Math.Abs(int.Parse(resultado[3]));
             //eps.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
             //eps.PrinterStatus = resultado[8];
@@ -74,7 +74,7 @@ namespace WCS_2._0.Repositories
 
             eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]);
 
-            eps.PorcentagemBlack = int.Parse(resultado[3]);
+            eps.PorcentagemBlack = Math.Abs(int.Parse(resultado[3]));
             //eps.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
             //eps.PrinterStatus = resultado[8];

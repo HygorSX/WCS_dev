@@ -20,8 +20,10 @@ namespace WCS_2._0.Models
         public int PorcentagemFusor { get; set; }
         public int PorcentagemBelt { get; set; }
         public int PorcentagemKitManutencao { get; set; }
+        public int PorcentagemUnidadeImagem { get; set; }
         private string _printerStatus { get; set; }
         public DateTime DataHoraDeBusca { get; set; } = DateTime.Now;
+        public string SerialTonnerPreto { get; set; } = string.Empty;
         public string PrinterStatus
         {
 

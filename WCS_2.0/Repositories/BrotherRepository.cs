@@ -61,9 +61,9 @@ namespace WCS_2._0.Repositories
             bth.DeviceManufacturer = "BROTHER";
             bth.DeviceModel = resultado[1];
 
-            bth.QuantidadeImpressaoTotal = int.Parse(resultado[2]) + int.Parse(resultado[3]);
+            bth.QuantidadeImpressaoTotal = Math.Abs(int.Parse(resultado[2]) + int.Parse(resultado[3]));
 
-            bth.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
+            bth.PorcentagemBlack = Math.Abs((int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]));
             //eps.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
             //eps.PrinterStatus = resultado[8];
@@ -85,12 +85,12 @@ namespace WCS_2._0.Repositories
             bth.DeviceManufacturer = "BROTHER";
             bth.DeviceModel = resultado[1];
 
-            bth.QuantidadeImpressaoTotal = int.Parse(resultado[2]) + int.Parse(resultado[3]);
+            bth.QuantidadeImpressaoTotal = Math.Abs(int.Parse(resultado[2]) + int.Parse(resultado[3]));
 
-            bth.PorcentagemBlack = (int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]);
-            bth.PorcentagemCyan = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
-            bth.PorcentagemMagenta = (int.Parse(resultado[8]) * 100) / int.Parse(resultado[9]);
-            bth.PorcentagemYellow = (int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]);
+            bth.PorcentagemBlack = Math.Abs((int.Parse(resultado[4]) * 100) / int.Parse(resultado[5]));
+            bth.PorcentagemCyan = Math.Abs((int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]));
+            bth.PorcentagemMagenta = Math.Abs((int.Parse(resultado[8]) * 100) / int.Parse(resultado[9]));
+            bth.PorcentagemYellow = Math.Abs((int.Parse(resultado[10]) * 100) / int.Parse(resultado[11]));
             //eps.PorcentagemFusor = (int.Parse(resultado[12]) * 100) / int.Parse(resultado[13]);
             //eps.PorcentagemBelt = (int.Parse(resultado[14]) * 100) / int.Parse(resultado[15]);
             bth.PrinterStatus = "";
