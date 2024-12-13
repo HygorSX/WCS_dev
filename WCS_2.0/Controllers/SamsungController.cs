@@ -16,23 +16,36 @@ namespace WCS_2._0.Controllers
             {
                 try
                 {
-                    var existingPrinter = db.PrinterMonitoringTESTE
-                        .FirstOrDefault(p => p.Ip == samsung.Ip);
+                    var existingPrinter = db.PrinterMonitoring
+                        .FirstOrDefault(p => p.Patrimonio == samsung.Patrimonio);
 
-                    if (existingPrinter != null)
+                    if (existingPrinter == null)
                     {
 
-                        //db.PrinterMonitoringTESTE.Add(samsung);
-                        existingPrinter.InstituicaoId = samsung.InstituicaoId;
+                        db.PrinterMonitoring.Add(samsung);
+                        //existingPrinter.InstituicaoId = samsung.InstituicaoId;
+                        //
+                        //existingPrinter.SerialTonnerPreto = samsung.SerialTonnerPreto;
+                        //existingPrinter.Localizacao = samsung.Localizacao;
                         Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Utils.Log("Dados da impressora SAMSUNG enviados com sucesso para o banco de dados. - ");
+                        Utils.Log("Dados da impressora SAMSUNG enviados com sucesso para o banco de dados. - \n");
                     }
                     else
                     {
-                        // Se a impressora já existir, registre as alterações no log
+                        existingPrinter.Ip = samsung.Ip;
+                        existingPrinter.Ativa = samsung.Ativa;
+                        existingPrinter.AbrSecretaria = samsung.AbrSecretaria;
+                        existingPrinter.Secretaria = samsung.Secretaria;
+                        existingPrinter.Depto = samsung.Depto;
+                        existingPrinter.InstituicaoId = samsung.InstituicaoId;
+                        existingPrinter.Localizacao = samsung.Localizacao;
+                        existingPrinter.Patrimonio = samsung.Patrimonio;
+
+                        db.SaveChanges();
+
                         SaveChangesInLogs(db, existingPrinter.Id, samsung);
                     }
                 }
@@ -67,7 +80,7 @@ namespace WCS_2._0.Controllers
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"A impressora {samsung.Patrimonio} já foi salva hoje.\n");
-                return; // Não faz nada se já foi salva hoje
+                return; 
             }
 
             var newLog = new PrinterStatusLogs
@@ -94,19 +107,17 @@ namespace WCS_2._0.Controllers
 
         private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers samsung)
         {
-            // Verifica se já existe um log para hoje
             if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
             {
-                return false; // Retorna false se já foi coletado hoje
+                return false; 
             }
 
-            // Se não houver log para hoje, verifica se os dados mudaram
             var lastLog = db.PrinterStatusLogs
                 .Where(l => l.PrinterId == printerId)
                 .OrderByDescending(l => l.DataHoraDeBusca)
                 .FirstOrDefault();
 
-            if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
+            if (lastLog == null) return true;
 
             return lastLog.QuantidadeImpressaoTotal != samsung.QuantidadeImpressaoTotal ||
                    lastLog.PorcentagemBlack != samsung.PorcentagemBlack ||

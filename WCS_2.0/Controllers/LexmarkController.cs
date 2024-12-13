@@ -15,24 +15,39 @@ namespace WCS.Controllers
             {
                 try
                 {
-                    var existingPrinter = db.PrinterMonitoringTESTE
-                        .FirstOrDefault(p => p.Ip == lexmark.Ip);
+                    var existingPrinter = db.PrinterMonitoring
+                        .FirstOrDefault(p => p.Patrimonio == lexmark.Patrimonio);
 
-                    if (existingPrinter != null)
+                    if (existingPrinter == null)
                     {
 
-                        //db.PrinterMonitoringTESTE.Add(lexmark);
+                        db.PrinterMonitoring.Add(lexmark);
                         //existingPrinter.SerialTonnerPreto = lexmark.SerialTonnerPreto;
-                        existingPrinter.InstituicaoId = lexmark.InstituicaoId;
+                        //existingPrinter.InstituicaoId = lexmark.InstituicaoId;
+                        //existingPrinter.Localizacao = lexmark.Localizacao;
+                        //existingPrinter.AbrSecretaria = lexmark.AbrSecretaria;
+                        //existingPrinter.Secretaria = lexmark.Secretaria;
+                        //existingPrinter.Depto = lexmark.Depto;
+                        //existingPrinter.Ip = lexmark.Ip;
                         Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Utils.Log("Dados da impressora LEXMARK enviados com sucesso para o banco de dados. - ");
+                        Utils.Log("Dados da impressora LEXMARK enviados com sucesso para o banco de dados. - \n");
                     }
                     else
                     {
-                        // Se a impressora já existir, registre as alterações no log
+                        existingPrinter.Ip = lexmark.Ip;
+                        existingPrinter.Ativa = lexmark.Ativa;
+                        existingPrinter.AbrSecretaria = lexmark.AbrSecretaria;
+                        existingPrinter.Secretaria = lexmark.Secretaria;
+                        existingPrinter.Depto = lexmark.Depto;
+                        existingPrinter.InstituicaoId = lexmark.InstituicaoId;
+                        existingPrinter.Localizacao = lexmark.Localizacao;
+                        existingPrinter.Patrimonio = lexmark.Patrimonio;
+
+                        db.SaveChanges();
+
                         SaveChangesInLogs(db, existingPrinter.Id, lexmark);
                     }
                 }
@@ -67,7 +82,7 @@ namespace WCS.Controllers
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"A impressora {lexmark.Patrimonio} já foi salva hoje ou não existe alterações.\n");
-                return; // Não faz nada se já foi salva hoje
+                return; 
             }
 
             var lastLog = db.PrinterStatusLogs
@@ -101,19 +116,17 @@ namespace WCS.Controllers
 
         private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers lexmark)
         {
-            // Verifica se já existe um log para hoje
             if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
             {
-                return false; // Retorna false se já foi coletado hoje
+                return false; 
             }
 
-            // Se não houver log para hoje, verifica se os dados mudaram
             var lastLog = db.PrinterStatusLogs
                 .Where(l => l.PrinterId == printerId)
                 .OrderByDescending(l => l.DataHoraDeBusca)
                 .FirstOrDefault();
 
-            if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
+            if (lastLog == null) return true;
 
             return lastLog.QuantidadeImpressaoTotal != lexmark.QuantidadeImpressaoTotal ||
                    lastLog.PorcentagemBlack != lexmark.PorcentagemBlack ||

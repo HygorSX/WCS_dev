@@ -9,9 +9,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using WCS.Controllers;
+using WCS.Data;
 using WCS.Repositories;
 using WCS.Utilities;
 using WCS_2._0.Repositories;
@@ -20,7 +22,7 @@ namespace WCS
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             TimeSpan _startHour = new TimeSpan(11, 59, 0);
             TimeSpan _endHour = new TimeSpan(13, 0, 0);
@@ -30,47 +32,51 @@ namespace WCS
 
             stopwatch.Start();
 
-            // Agora usamos a função assíncrona para obter as impressoras
-            var infoImpressoras =  Utils.GetImpressoras();
+            var infoImpressoras = Utils.GetImpressoras();
 
-            foreach (var impressora in infoImpressoras)
+            Parallel.ForEach(infoImpressoras, impressora =>
             {
-                // Processo de ping e SNMP permanece o mesmo
-                if (impressora.IP != "192.168.222.30") continue;
-
                 if (TestePing((string)impressora.IP))
                 {
                     bool isMono = Utils.VerificarMono(impressora.Suprimentos);
                     var snmpResults = ObterDadosSnmp(impressora.IP, isMono, impressora.Marca);
+
                     if (snmpResults.Count != 0)
                     {
                         Printers impressoraData = AnalisarResultadosSnmp(snmpResults, isMono, impressora.Marca);
+                        impressoraData.Ativa = 1;
+
                         impressoraData.Patrimonio = impressora.Patrimonio;
                         impressoraData.Secretaria = impressora.Secretaria;
                         impressoraData.AbrSecretaria = impressora.AbrSecretaria;
                         impressoraData.Depto = impressora.Depto;
                         impressoraData.Ip = impressora.IP;
                         impressoraData.InstituicaoId = impressora.InstituicaoId;
+                        impressoraData.Localizacao = impressora.Localizacao;
 
-                        if (impressoraData.PorcentagemBlack <= 20)
+                        lock (printers)
                         {
-                            printers.Add(impressoraData);
+                            if (impressoraData.PorcentagemBlack <= 20)
+                            {
+                                printers.Add(impressoraData);
+                            }
                         }
+
                         Utils.SalvarResultados(impressoraData, isMono, $"C:\\WFS\\Test-{impressora.Id}.txt", impressora.Marca);
-                        Console.Out.WriteAsync($"{impressora.IP}\n");
                     }
                     else
                     {
+                        AtualizarStatusImpressoraInativa(impressora.IP, impressora.Id, impressora.Marca);
+
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Out.WriteLineAsync($"Você não tem permissão para acessar as informações desta impressora! - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
+                        Console.Out.WriteLineAsync($"Essa impressora pode estar cadastrada de maneira errada! - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
                     }
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Out.WriteLineAsync($"Não foi possível entrar em contato com a impressora - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
+                    AtualizarStatusImpressoraInativa(impressora.IP, impressora.Id, impressora.Marca);
                 }
-            }
+            });
 
             if (printers.Count > 0 && (now >= _startHour && now < _endHour))
             {
@@ -109,9 +115,7 @@ namespace WCS
 
         private static Dictionary<Oid, AsnType> ObterDadosSnmp(string ip, bool isMono, dynamic marca)
         {
-            //List<string> oids = isMono ? LexmarkRepository.GetMonoOidsLex() : LexmarkRepository.GetColorOidsLex();
 
-          
             List<string> oids;
 
             if (isMono)
@@ -136,13 +140,17 @@ namespace WCS
                 {
                     oids = RicohRepository.GetMonoOidsRic();
                 }
+                else if (marca == "CANON")
+                {
+                    oids = CanonRepository.GetMonoOidsCan();
+                }
                 else
                 {
                     Console.WriteLine("COLOR - Impressora Não Listada");
                     oids = null;
                 }
             }
-            else // Se não for mono, então é colorido
+            else 
             {
                 if (marca == "LEXMARK")
                 {
@@ -163,6 +171,10 @@ namespace WCS
                 else if (marca == "RICOH")
                 {
                     oids = RicohRepository.GetColorOidsRic();
+                }
+                else if (marca == "CANON")
+                {
+                    oids = CanonRepository.GetColorOidsCan();
                 }
                 else
                 {
@@ -187,10 +199,10 @@ namespace WCS
         {
             Printers printer = new Printers();
             string[] resultado = snmpResults.Values.Select(v => v.ToString()).ToArray();
-            //lexmark.Id = 0;
+
             if (isMono)
             {
-                if(marca == "LEXMARK")
+                if (marca == "LEXMARK")
                 {
                     printer = LexmarkRepository.AnalisarDadosMonoLex(resultado, printer);
                 }
@@ -210,6 +222,10 @@ namespace WCS
                 {
                     printer = RicohRepository.AnalisarDadosMonoRic(resultado, printer);
                 }
+                else if (marca == "CANON")
+                {
+                    printer = CanonRepository.AnalisarDadosMonoCan(resultado, printer);
+                }
             }
             else
             {
@@ -217,7 +233,7 @@ namespace WCS
                 {
                     printer = LexmarkRepository.AnalisarDadosColorLex(resultado, printer);
                 }
-                else if(marca == "EPSON")
+                else if (marca == "EPSON")
                 {
                     printer = EpsonRepository.AnalisarDadosColorEps(resultado, printer);
                 }
@@ -233,20 +249,53 @@ namespace WCS
                 {
                     printer = RicohRepository.AnalisarDadosColorRic(resultado, printer);
                 }
+                else if (marca == "RICOH")
+                {
+                    printer = CanonRepository.AnalisarDadosColorCan(resultado, printer);
+                }
             }
 
             return printer;
         }
 
+        public static void AtualizarStatusImpressoraInativa(string ip, int id, string marca)
+        {
+            using (var dbContext = new PrinterMonitoringContext()) 
+            {
+                var impressoraExistente = dbContext.PrinterMonitoring
+                                                   .FirstOrDefault(p => p.Ip == ip);
+                if (impressoraExistente != null)
+                {
+                    impressoraExistente.Ativa = 0;
+                    dbContext.SaveChanges(); 
 
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Out.WriteLineAsync($"Impressora inativa e SALVA - {ip} - {id} - {marca}\n");
+                }
+            }
+        }
 
         private static bool TestePing(string ip)
         {
+            const int timeout = 1000;
+            const int tentativas = 2;
+            int falhas = 0;
+
             try
             {
-                Ping ping = new Ping();
-                PingReply pingReply = ping.Send(ip);
-                return pingReply.Status == IPStatus.Success;
+                using (Ping ping = new Ping())
+                {
+                    for (int i = 0; i < tentativas; i++)
+                    {
+                        PingReply reply = ping.Send(ip, timeout);
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            return true;
+                        }
+                        falhas++;
+                    }
+                }
+                return falhas == tentativas;
             }
             catch (Exception ex)
             {

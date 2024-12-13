@@ -42,17 +42,14 @@ namespace WCS.Utilities
             {
                 string hexString = hex;
 
-                // Removendo os espaços em branco
                 hexString = hexString.Replace(" ", "");
 
-                // Convertendo a string hexadecimal em um array de bytes
                 byte[] bytes = new byte[hexString.Length / 2];
                 for (int i = 0; i < bytes.Length; i++)
                 {
                     bytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
                 }
 
-                // Decodificando os bytes em uma string usando a codificação UTF-8
                 string decodedString = Encoding.UTF8.GetString(bytes);
 
                 return (decodedString);
@@ -77,7 +74,6 @@ namespace WCS.Utilities
                     if (marca == "LEXMARK")
                     {
                         LexmarkController.EnviarDadosLexmark(imp);
-                        //LexmarkRepository.EscreverDadosMono(imp, sw);
                     }
                     else if (marca == "EPSON")
                     {
@@ -94,6 +90,10 @@ namespace WCS.Utilities
                     else if (marca == "RICOH")
                     {
                         RicohController.EnviarDadosRicoh(imp);
+                    }
+                    else if (marca == "CANON")
+                    {
+                        CanonController.EnviarDadosCanon(imp);
                     }
                 }
                 else
@@ -101,7 +101,6 @@ namespace WCS.Utilities
                     if (marca == "LEXMARK")
                     {
                         LexmarkController.EnviarDadosLexmark(imp);
-                        //LexmarkRepository.EscreverDadosColor(imp, sw);
                     }
                     else if (marca == "EPSON")
                     {
@@ -118,6 +117,10 @@ namespace WCS.Utilities
                     else if (marca == "RICOH")
                     {
                         RicohController.EnviarDadosRicoh(imp);
+                    }
+                    else if (marca == "CANON")
+                    {
+                        CanonController.EnviarDadosCanon(imp);
                     }
                 }
             }
@@ -128,20 +131,17 @@ namespace WCS.Utilities
         public static void Log(string message)
         {
             Console.Write(message);
-            // Adicionar log para um arquivo ou sistema de log se necessário
         }
 
         public static List<Equipamento> GetImpressoras()
         {
-            var url = "https://www1.barueri.sp.gov.br/citestoque/EquipamentoSecretaria/GetListaImpServicePrinter"; // Substitua pela URL real da sua API
+            var url = "https://www1.barueri.sp.gov.br/citestoque/EquipamentoSecretaria/GetListaImpServicePrinter";
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    // Realiza a requisição GET na API de forma síncrona
                     var response = client.GetStringAsync(url).Result;
 
-                    // Deserializa a resposta da API para um formato de lista de objetos
                     var impressoras = JsonConvert.DeserializeObject<List<Equipamento>>(response);
 
                     return impressoras;
@@ -150,12 +150,10 @@ namespace WCS.Utilities
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Erro ao acessar a API: {ex.Message}");
-                    return new List<Equipamento>(); // Retorna uma lista vazia em caso de erro
+                    return new List<Equipamento>(); 
                 }
             }
         }
-
-
 
         public static bool VerificarMono(dynamic suprimentos)
         {
@@ -170,12 +168,6 @@ namespace WCS.Utilities
             }
             return true;
         }
-
-        //-------------------------------------------------------------------------------------
-        //sendo usado em outra classe
-        //
-        //função que envia o email
-        // Patrimonio - Modelo - Secretaria - Departamento - % Toner
 
         public static bool EnviarEmailTonnerMinimo(List<Printers> imp)
         {
@@ -228,7 +220,6 @@ namespace WCS.Utilities
             email.ToEmail = emailPrincipal;
             email.CcEmail = "cit.vinicius@barueri.sp.gov.br;cit.arjona@barueri.sp.gov.br";
             email.Subject = "Tonners Abaixo de 20%";
-            //email.CcEmail = emailCopia;
 
             email.Body = msn;
             try

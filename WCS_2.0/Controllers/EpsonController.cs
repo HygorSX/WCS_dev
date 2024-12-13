@@ -16,24 +16,36 @@ namespace WCS_2._0.Controllers
             {
                 try
                 {
-                    var existingPrinter = db.PrinterMonitoringTESTE
-                        .FirstOrDefault(p => p.Ip == epson.Ip);
+                    var existingPrinter = db.PrinterMonitoring
+                        .FirstOrDefault(p => p.Patrimonio == epson.Patrimonio);
 
-                    if (existingPrinter != null)
+                    if (existingPrinter == null)
                     {
 
-                        //db.PrinterMonitoringTESTE.Add(epson);
+                        db.PrinterMonitoring.Add(epson);
                         //existingPrinter.SerialTonnerPreto = epson.SerialTonnerPreto;
-                        existingPrinter.InstituicaoId = epson.InstituicaoId;
+                        //existingPrinter.InstituicaoId = epson.InstituicaoId;
+                        //existingPrinter.PrinterStatus = epson.PrinterStatus;
+                        //existingPrinter.Localizacao = epson.Localizacao;
                         Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Utils.Log("Dados da impressora EPSON enviados com sucesso para o banco de dados. - ");
+                        Utils.Log("Dados da impressora EPSON enviados com sucesso para o banco de dados. -\n ");
                     }
                     else
                     {
-                        // Se a impressora já existir, registre as alterações no log
+                        existingPrinter.Ip = epson.Ip;
+                        existingPrinter.Ativa = epson.Ativa;
+                        existingPrinter.AbrSecretaria = epson.AbrSecretaria;
+                        existingPrinter.Secretaria = epson.Secretaria;
+                        existingPrinter.Depto = epson.Depto;
+                        existingPrinter.InstituicaoId = epson.InstituicaoId;
+                        existingPrinter.Localizacao = epson.Localizacao;
+                        existingPrinter.Patrimonio = epson.Patrimonio;
+
+                        db.SaveChanges();
+
                         SaveChangesInLogs(db, existingPrinter.Id, epson);
                     }
                 }
@@ -68,7 +80,7 @@ namespace WCS_2._0.Controllers
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"A impressora {epson.Patrimonio} já foi salva hoje.\n");
-                return; // Não faz nada se já foi salva hoje
+                return;
             }
 
             var newLog = new PrinterStatusLogs
@@ -95,19 +107,17 @@ namespace WCS_2._0.Controllers
 
         private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers epson)
         {
-            // Verifica se já existe um log para hoje
             if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
             {
-                return false; // Retorna false se já foi coletado hoje
+                return false; 
             }
 
-            // Se não houver log para hoje, verifica se os dados mudaram
             var lastLog = db.PrinterStatusLogs
                 .Where(l => l.PrinterId == printerId)
                 .OrderByDescending(l => l.DataHoraDeBusca)
                 .FirstOrDefault();
 
-            if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
+            if (lastLog == null) return true; 
 
             return lastLog.QuantidadeImpressaoTotal != epson.QuantidadeImpressaoTotal ||
                    lastLog.PorcentagemBlack != epson.PorcentagemBlack ||

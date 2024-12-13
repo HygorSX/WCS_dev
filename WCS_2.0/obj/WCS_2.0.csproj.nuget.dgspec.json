@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PMB\\Documents\\projeto_wcs_03dezembro\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj": {}
+    "C:\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PMB\\Documents\\projeto_wcs_03dezembro\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj": {
+    "C:\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PMB\\Documents\\projeto_wcs_03dezembro\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
+        "projectUniqueName": "C:\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
         "projectName": "WCS_2.0",
-        "projectPath": "C:\\Users\\PMB\\Documents\\projeto_wcs_03dezembro\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
+        "projectPath": "C:\\WCS_dev\\WCS_2.0\\WCS_2.0.csproj",
         "packagesPath": "C:\\Users\\PMB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PMB\\Documents\\projeto_wcs_03dezembro\\WCS_dev\\WCS_2.0\\obj\\",
+        "outputPath": "C:\\WCS_dev\\WCS_2.0\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -83,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -19,23 +19,35 @@ namespace WCS_2._0.Controllers
             {
                 try
                 {
-                    var existingPrinter = db.PrinterMonitoringTESTE
-                        .FirstOrDefault(p => p.Ip == ricoh.Ip);
+                    var existingPrinter = db.PrinterMonitoring
+                        .FirstOrDefault(p => p.Patrimonio == ricoh.Patrimonio);
 
-                    if (existingPrinter != null)
+                    if (existingPrinter == null)
                     {
 
-                        //db.PrinterMonitoringTESTE.Add(ricoh);
-                        existingPrinter.InstituicaoId = ricoh.InstituicaoId;
+                        db.PrinterMonitoring.Add(ricoh);
+                        //existingPrinter.InstituicaoId = ricoh.InstituicaoId;
+                        //existingPrinter.Localizacao = ricoh.Localizacao;
                         Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Utils.Log("Dados da impressora RICOH enviados com sucesso para o banco de dados. - ");
+                        Utils.Log("Dados da impressora RICOH enviados com sucesso para o banco de dados. - \n");
                     }
                     else
                     {
+                        existingPrinter.Ip = ricoh.Ip;
+                        existingPrinter.Ativa = ricoh.Ativa;
+                        existingPrinter.AbrSecretaria = ricoh.AbrSecretaria;
+                        existingPrinter.Secretaria = ricoh.Secretaria;
+                        existingPrinter.Depto = ricoh.Depto;
+                        existingPrinter.InstituicaoId = ricoh.InstituicaoId;
+                        existingPrinter.Localizacao = ricoh.Localizacao;
+                        existingPrinter.Patrimonio = ricoh.Patrimonio;
+
+                        db.SaveChanges();
+
                         SaveChangesInLogs(db, existingPrinter.Id, ricoh);
                     }
                 }
@@ -70,7 +82,7 @@ namespace WCS_2._0.Controllers
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"A impressora {ricoh.Patrimonio} já foi salva hoje.\n");
-                return; // Não faz nada se já foi salva hoje
+                return; 
             }
 
             var newLog = new PrinterStatusLogs
@@ -97,19 +109,17 @@ namespace WCS_2._0.Controllers
 
         private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers ricoh)
         {
-            // Verifica se já existe um log para hoje
             if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
             {
-                return false; // Retorna false se já foi coletado hoje
+                return false; 
             }
 
-            // Se não houver log para hoje, verifica se os dados mudaram
             var lastLog = db.PrinterStatusLogs
                 .Where(l => l.PrinterId == printerId)
                 .OrderByDescending(l => l.DataHoraDeBusca)
                 .FirstOrDefault();
 
-            if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
+            if (lastLog == null) return true;
 
             return lastLog.QuantidadeImpressaoTotal != ricoh.QuantidadeImpressaoTotal ||
                    lastLog.PorcentagemBlack != ricoh.PorcentagemBlack ||

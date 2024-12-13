@@ -13,14 +13,16 @@ namespace WCS_2._0.Repositories
         {
             return new List<string>
             {
-               ".1.3.6.1.2.1.43.5.1.1.16.1", // Serial Number
+               ".1.3.6.1.4.1.236.11.5.1.1.1.4.0", // Serial Number
                // Inserir Fabricante Manualmente
-               ".1.3.6.1.2.1.25.3.2.1.3.1", // Modelo Da Impressora
+               ".1.3.6.1.4.1.236.11.5.11.53.31.1.4.0", // Modelo Da Impressora
                ".1.3.6.1.2.1.43.10.2.1.4.1.1", // Total Impressões
-               ".1.3.6.1.4.1.236.11.5.1.1.3.22.0", // Nível Preto
-               // Nível Kit Manutenção 
-               // Capacidade Kit Manutenção
-               ".1.3.6.1.2.1.43.16.5.1.2.1.1"// Printer Status
+               ".1.3.6.1.2.1.43.11.1.1.9.1.1", // Nível Preto
+               ".1.3.6.1.2.1.43.11.1.1.8.1.1", // Capacidade Preto
+               ".1.3.6.1.2.1.43.11.1.1.9.1.2", // Nível Fusor
+               ".1.3.6.1.2.1.43.11.1.1.8.1.2", // Capacidade Fusor
+               ".1.3.6.1.4.1.236.11.5.11.53.61.5.2.1.7.1.1", //Serial Tonner Preto
+               // ".1.3.6.1.2.1.43.16.5.1.2.1.1"// Printer Status
             };
         }
 
@@ -31,14 +33,16 @@ namespace WCS_2._0.Repositories
         {
             return new List<string>
             {
-               ".1.3.6.1.2.1.43.5.1.1.16.1", // Serial Number
+               ".1.3.6.1.4.1.236.11.5.1.1.1.4.0", // Serial Number
                // Inserir Fabricante Manualmente
-               ".1.3.6.1.2.1.25.3.2.1.3.1", // Modelo Da Impressora
+               ".1.3.6.1.4.1.236.11.5.11.53.31.1.4.0", // Modelo Da Impressora
                ".1.3.6.1.2.1.43.10.2.1.4.1.1", // Total Impressões
-               ".1.3.6.1.4.1.236.11.5.1.1.3.22.0", // Nível Preto
-               // Nível Kit Manutenção 
-               // Capacidade Kit Manutenção
-               ".1.3.6.1.2.1.43.16.5.1.2.1.1"// Printer Status
+               ".1.3.6.1.2.1.43.11.1.1.9.1.1", // Nível Preto
+               ".1.3.6.1.2.1.43.11.1.1.8.1.1", // Capacidade Preto
+               ".1.3.6.1.4.1.236.11.5.11.53.61.5.2.1.7.1.1", // Serial Tonner Preto
+               // ".1.3.6.1.2.1.43.16.5.1.2.1.1",// Printer Status
+               ".1.3.6.1.2.1.43.11.1.1.9.1.2", // Nível Fusor
+               ".1.3.6.1.2.1.43.11.1.1.8.1.2" // Capacidade Fusor
             };
         }
 
@@ -51,11 +55,12 @@ namespace WCS_2._0.Repositories
 
             eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]);
 
-            eps.PorcentagemBlack = Math.Abs(int.Parse(resultado[3]));
-            //eps.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
+            eps.PorcentagemBlack = Math.Abs(int.Parse(resultado[3]) * 100) / int.Parse(resultado[4]);
+            eps.PorcentagemFusor = Math.Abs(int.Parse(resultado[5]) * 100) / int.Parse(resultado[6]);
 
-            //eps.PrinterStatus = resultado[8];
-            eps.PrinterStatus = resultado[4];
+            eps.SerialTonnerPreto = resultado[7];
+
+            eps.PrinterStatus = "";
 
             eps.SerialImpressora = resultado[0];
 
@@ -74,11 +79,12 @@ namespace WCS_2._0.Repositories
 
             eps.QuantidadeImpressaoTotal = int.Parse(resultado[2]);
 
-            eps.PorcentagemBlack = Math.Abs(int.Parse(resultado[3]));
-            //eps.PorcentagemKitManutenção = (int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
+            eps.PorcentagemBlack = Math.Abs(int.Parse(resultado[3]) * 100) / int.Parse(resultado[4]);
+            eps.PorcentagemFusor = Math.Abs(int.Parse(resultado[6]) * 100) / int.Parse(resultado[7]);
 
-            //eps.PrinterStatus = resultado[8];
-            eps.PrinterStatus = resultado[4];
+            eps.SerialTonnerPreto = resultado[5];
+
+            eps.PrinterStatus = "";
 
             eps.SerialImpressora = resultado[0];
 

@@ -18,6 +18,7 @@ namespace WCS_2._0.Models
         public string Secretaria { get; set; }
         public string AbrSecretaria { get; set; }
         public string Depto { get; set; }
+        public string Localizacao { get; set; }
         public List<Suprimento> Suprimentos { get; set; }
     }
 }

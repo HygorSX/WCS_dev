@@ -19,23 +19,37 @@ namespace WCS_2._0.Controllers
             {
                 try
                 {
-                    var existingPrinter = db.PrinterMonitoringTESTE
-                        .FirstOrDefault(p => p.Ip == brother.Ip);
+                    var existingPrinter = db.PrinterMonitoring
+                        .FirstOrDefault(p => p.Patrimonio == brother.Patrimonio);
 
-                    if (existingPrinter != null)
+                    if (existingPrinter == null)
                     {
 
-                        //db.PrinterMonitoringTESTE.Add(brother);
+                        db.PrinterMonitoring.Add(brother);
                         //existingPrinter.SerialTonnerPreto = brother.SerialTonnerPreto;
-                        existingPrinter.InstituicaoId = brother.InstituicaoId;
+                        //existingPrinter.InstituicaoId = brother.InstituicaoId;
+                        //existingPrinter.Localizacao = brother.Localizacao;
+
                         Console.WriteLine(existingPrinter);
                         db.SaveChanges();
 
                         Console.ForegroundColor = ConsoleColor.Green;
                         Utils.Log("Dados da impressora BROTHER enviados com sucesso para o banco de dados. - ");
                     }
+
                     else
                     {
+                        existingPrinter.Ip = brother.Ip;
+                        existingPrinter.Ativa = brother.Ativa;
+                        existingPrinter.AbrSecretaria = brother.AbrSecretaria;
+                        existingPrinter.Secretaria = brother.Secretaria;
+                        existingPrinter.Depto = brother.Depto;
+                        existingPrinter.InstituicaoId = brother.InstituicaoId;
+                        existingPrinter.Localizacao = brother.Localizacao;
+                        existingPrinter.Patrimonio = brother.Patrimonio;
+
+                        db.SaveChanges();
+
                         SaveChangesInLogs(db, existingPrinter.Id, brother);
                     }
                 }
@@ -70,7 +84,7 @@ namespace WCS_2._0.Controllers
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"A impressora {brother.Patrimonio} já foi salva hoje.\n");
-                return; // Não faz nada se já foi salva hoje
+                return; 
             }
 
             var newLog = new PrinterStatusLogs
@@ -92,24 +106,22 @@ namespace WCS_2._0.Controllers
             db.SaveChanges();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Utils.Log("Alterações na impressora BROTHER registradas com sucesso no banco de dados. - ");
+            Utils.Log("Alterações na impressora BROTHER registradas com sucesso no banco de dados. -\n ");
         }
 
         private static bool HasChanges(PrinterMonitoringContext db, int printerId, Printers brother)
         {
-            // Verifica se já existe um log para hoje
             if (db.PrinterStatusLogs.Any(log => log.PrinterId == printerId && log.DataHoraDeBusca.Date == DateTime.Now.Date))
             {
-                return false; // Retorna false se já foi coletado hoje
+                return false;
             }
 
-            // Se não houver log para hoje, verifica se os dados mudaram
             var lastLog = db.PrinterStatusLogs
                 .Where(l => l.PrinterId == printerId)
                 .OrderByDescending(l => l.DataHoraDeBusca)
                 .FirstOrDefault();
 
-            if (lastLog == null) return true; // Se não houver log anterior, considera que há mudanças
+            if (lastLog == null) return true; 
 
             return lastLog.QuantidadeImpressaoTotal != brother.QuantidadeImpressaoTotal ||
                    lastLog.PorcentagemBlack != brother.PorcentagemBlack ||

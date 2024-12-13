@@ -12,7 +12,6 @@ namespace WCS
 {
     public class Printers : Utils
     {
-        //public String MacAddress { get; set; } 
         [Key]
         public int Id { get; set; }
         public string SerialUniImage { get; set; }
@@ -39,8 +38,9 @@ namespace WCS
         public string Depto { get; set; }
         public int InstituicaoId { get; set; }
         public int EmailAbaixo20pc { get; set; }
-        //public string PrinterStatus { get; set; }
         public DateTime DataHoraDeBusca { get; set; } = DateTime.Now;
+        public string Localizacao { get; set; }
+        public int Ativa { get; set; }
 
         public string PrinterStatus
         {
