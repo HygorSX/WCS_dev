@@ -233,5 +233,39 @@ namespace WCS.Utilities
                 return false;
             }
         }
+
+        public static bool ImpressoraJaRegistradaComoErro(int patrimonio)
+        {
+            using (var context = new PrinterMonitoringContext())
+            {
+                return context.ErrosImpressoras.Any(e => e.Patrimonio == patrimonio);
+            }
+        }
+
+        public static bool ImpressoraJaRegistradaComoUSB(int patrimonio)
+        {
+            using (var context = new PrinterMonitoringContext())
+            {
+                return context.ImpressorasUSB.Any(e => e.Patrimonio == patrimonio);
+            }
+        }
+
+        public static void SalvarErroNoBanco(ErrosImpressoras erro)
+        {
+            using (var context = new PrinterMonitoringContext())
+            {
+                context.ErrosImpressoras.Add(erro);
+                context.SaveChanges();
+            }
+        }
+
+        public static void SalvarImpressoraUSBNoBanco(ImpressorasUSB usb)
+        {
+            using (var context = new PrinterMonitoringContext())
+            {
+                context.ImpressorasUSB.Add(usb);
+                context.SaveChanges();
+            }
+        }
     }
 }

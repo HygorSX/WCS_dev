@@ -3,36 +3,68 @@
   "WorkspaceRootPath": "C:\\WCS_dev\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\brothercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\brothercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\canoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\canoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\epsoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\epsoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\lexmarkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\lexmarkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\ricohcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\ricohcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\samsungcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\samsungcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\utilities\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\utilities\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\utilities\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\utilities\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\ef\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\ef\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\impressorasusb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\impressorasusb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\impressoras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\impressoras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\errosimpressoras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\errosimpressoras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\repositories\\lexmarkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\repositories\\lexmarkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\samsungcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\samsungcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\ricohcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\ricohcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\lexmarkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\lexmarkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\epsoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\epsoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\canoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\canoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\controllers\\brothercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\controllers\\brothercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\printers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\printers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\package.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -41,10 +73,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\repositories\\ricohrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\repositories\\ricohrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\repositories\\lexmarkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\repositories\\lexmarkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\repositories\\brotherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,22 +85,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\printerstatuslogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\printerstatuslogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\printers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\printers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\models\\equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\models\\equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\ef\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\ef\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\utilities\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|solutionrelative:wcs_2.0\\utilities\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77879614-6906-4ED7-BA49-C1DC66D7CF1A}|WCS_2.0\\WCS_2.0.csproj|c:\\wcs_dev\\wcs_2.0\\repositories\\epsonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -93,12 +105,48 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "DockedWidth": 301,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 4,
+              "Title": "ImpressorasUSB.cs",
+              "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Models\\ImpressorasUSB.cs",
+              "RelativeDocumentMoniker": "WCS_2.0\\Models\\ImpressorasUSB.cs",
+              "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Models\\ImpressorasUSB.cs",
+              "RelativeToolTip": "WCS_2.0\\Models\\ImpressorasUSB.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-19T14:45:16.805Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Impressoras.cs",
+              "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Models\\Impressoras.cs",
+              "RelativeDocumentMoniker": "WCS_2.0\\Models\\Impressoras.cs",
+              "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Models\\Impressoras.cs",
+              "RelativeToolTip": "WCS_2.0\\Models\\Impressoras.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T11:42:00.783Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ErrosImpressoras.cs",
+              "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Models\\ErrosImpressoras.cs",
+              "RelativeDocumentMoniker": "WCS_2.0\\Models\\ErrosImpressoras.cs",
+              "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Models\\ErrosImpressoras.cs",
+              "RelativeToolTip": "WCS_2.0\\Models\\ErrosImpressoras.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T12:36:23.466Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
               "Title": "Suprimento.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Models\\Suprimento.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Models\\Suprimento.cs",
@@ -110,7 +158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 13,
               "Title": "CanonController.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Controllers\\CanonController.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Controllers\\CanonController.cs",
@@ -118,12 +166,11 @@
               "RelativeToolTip": "WCS_2.0\\Controllers\\CanonController.cs",
               "ViewState": "AQIAAA4AAAAAAAAAAAAQwCgAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:08:39.663Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T14:08:39.663Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "CanonRepository.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Repositories\\CanonRepository.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Repositories\\CanonRepository.cs",
@@ -135,7 +182,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "RicohController.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Controllers\\RicohController.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Controllers\\RicohController.cs",
@@ -143,12 +190,11 @@
               "RelativeToolTip": "WCS_2.0\\Controllers\\RicohController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T14:51:07.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T14:51:07.49Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 17,
               "Title": "RicohRepository.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Repositories\\RicohRepository.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Repositories\\RicohRepository.cs",
@@ -160,7 +206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "SamsungRepository.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Repositories\\SamsungRepository.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Repositories\\SamsungRepository.cs",
@@ -172,7 +218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "EpsonRepository.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Repositories\\EpsonRepository.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Repositories\\EpsonRepository.cs",
@@ -184,31 +230,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "LexmarkRepository.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Repositories\\LexmarkRepository.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Repositories\\LexmarkRepository.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Repositories\\LexmarkRepository.cs",
               "RelativeToolTip": "WCS_2.0\\Repositories\\LexmarkRepository.cs",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAowEYAAAAyAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwBAAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-19T15:12:23.044Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Program.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Program.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Program.cs",
               "RelativeToolTip": "WCS_2.0\\Program.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAgwFAAAABMAAAA",
+              "ViewState": "AQIAAE8BAAAAAAAAAAAuwHABAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-03T13:12:19.682Z"
+              "WhenOpened": "2024-10-03T13:12:19.682Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "LexmarkController.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Controllers\\LexmarkController.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Controllers\\LexmarkController.cs",
@@ -216,37 +263,35 @@
               "RelativeToolTip": "WCS_2.0\\Controllers\\LexmarkController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-06T16:31:26.412Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-06T16:31:26.412Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 14,
               "Title": "BrotherController.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Controllers\\BrotherController.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Controllers\\BrotherController.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Controllers\\BrotherController.cs",
               "RelativeToolTip": "WCS_2.0\\Controllers\\BrotherController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAQwCcAAAAYAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-03T13:14:31.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T13:14:31.417Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 6,
               "Title": "Equipamento.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Models\\Equipamento.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Models\\Equipamento.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Models\\Equipamento.cs",
               "RelativeToolTip": "WCS_2.0\\Models\\Equipamento.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAxAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-11T16:37:52.399Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 2,
               "Title": "Email.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Utilities\\Email.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Utilities\\Email.cs",
@@ -254,11 +299,12 @@
               "RelativeToolTip": "WCS_2.0\\Utilities\\Email.cs",
               "ViewState": "AQIAABcAAAAAAAAAAAAuwAEAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T15:28:08.367Z"
+              "WhenOpened": "2024-10-29T15:28:08.367Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "EpsonController.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Controllers\\EpsonController.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Controllers\\EpsonController.cs",
@@ -266,61 +312,60 @@
               "RelativeToolTip": "WCS_2.0\\Controllers\\EpsonController.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAACUAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-06T16:31:21.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-06T16:31:21.18Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 3,
               "Title": "DataContext.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\EF\\DataContext.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\EF\\DataContext.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\EF\\DataContext.cs",
               "RelativeToolTip": "WCS_2.0\\EF\\DataContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAiAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-03T13:15:35.39Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "SamsungController.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Controllers\\SamsungController.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Controllers\\SamsungController.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Controllers\\SamsungController.cs",
               "RelativeToolTip": "WCS_2.0\\Controllers\\SamsungController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACUAAAA0AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-03T13:14:44.339Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-03T13:14:44.339Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Utils.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Utilities\\Utils.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Utilities\\Utils.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Utilities\\Utils.cs",
               "RelativeToolTip": "WCS_2.0\\Utilities\\Utils.cs",
-              "ViewState": "AQIAAG4AAAAAAAAAAAAwwIkAAAAXAAAA",
+              "ViewState": "AQIAANUAAAAAAAAAAAAjwPgAAABTAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T17:14:26.012Z"
+              "WhenOpened": "2024-10-14T17:14:26.012Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Printers.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Models\\Printers.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Models\\Printers.cs",
               "ToolTip": "C:\\WCS_dev\\WCS_2.0\\Models\\Printers.cs",
               "RelativeToolTip": "WCS_2.0\\Models\\Printers.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAA9wCIAAAAmAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAAA1wCgAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-03T13:15:33.625Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 20,
               "Title": "PrinterStatusLogs.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Models\\PrinterStatusLogs.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Models\\PrinterStatusLogs.cs",
@@ -332,7 +377,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 16,
               "Title": "package.config",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\package.config",
               "RelativeDocumentMoniker": "WCS_2.0\\package.config",
@@ -344,7 +389,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 18,
               "Title": "BrotherRepository.cs",
               "DocumentMoniker": "C:\\WCS_dev\\WCS_2.0\\Repositories\\BrotherRepository.cs",
               "RelativeDocumentMoniker": "WCS_2.0\\Repositories\\BrotherRepository.cs",

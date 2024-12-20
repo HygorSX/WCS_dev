@@ -7,6 +7,8 @@ namespace WCS.Data
     {
         public DbSet<Printers> PrinterMonitoring { get; set; }
         public DbSet<PrinterStatusLogs> PrinterStatusLogs { get; set; }
+        public DbSet<ErrosImpressoras> ErrosImpressoras { get; set; }
+        public DbSet<ImpressorasUSB> ImpressorasUSB { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

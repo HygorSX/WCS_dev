@@ -16,6 +16,7 @@ using WCS.Controllers;
 using WCS.Data;
 using WCS.Repositories;
 using WCS.Utilities;
+using WCS_2._0.Models;
 using WCS_2._0.Repositories;
 
 namespace WCS
@@ -36,47 +37,64 @@ namespace WCS
 
             Parallel.ForEach(infoImpressoras, impressora =>
             {
-                if (TestePing((string)impressora.IP))
+                if (impressora.IP == "USB")
                 {
-                    bool isMono = Utils.VerificarMono(impressora.Suprimentos);
-                    var snmpResults = ObterDadosSnmp(impressora.IP, isMono, impressora.Marca);
+                    SalvarImpressoraUSB(impressora);
+                    return;
+                }
 
-                    if (snmpResults.Count != 0)
+                if (!impressora.IP.StartsWith("10."))
+                {
+                    if (TestePing((string)impressora.IP))
                     {
-                        Printers impressoraData = AnalisarResultadosSnmp(snmpResults, isMono, impressora.Marca);
-                        impressoraData.Ativa = 1;
+                        bool isMono = Utils.VerificarMono(impressora.Suprimentos);
+                        var snmpResults = ObterDadosSnmp(impressora.IP, isMono, impressora.Marca);
 
-                        impressoraData.Patrimonio = impressora.Patrimonio;
-                        impressoraData.Secretaria = impressora.Secretaria;
-                        impressoraData.AbrSecretaria = impressora.AbrSecretaria;
-                        impressoraData.Depto = impressora.Depto;
-                        impressoraData.Ip = impressora.IP;
-                        impressoraData.InstituicaoId = impressora.InstituicaoId;
-                        impressoraData.Localizacao = impressora.Localizacao;
-
-                        lock (printers)
+                        if (snmpResults.Count != 0)
                         {
-                            if (impressoraData.PorcentagemBlack <= 20)
-                            {
-                                printers.Add(impressoraData);
-                            }
-                        }
+                            RemoverDaTabelaDeErros(impressora.Patrimonio);
 
-                        Utils.SalvarResultados(impressoraData, isMono, $"C:\\WFS\\Test-{impressora.Id}.txt", impressora.Marca);
+                            Printers impressoraData = AnalisarResultadosSnmp(snmpResults, isMono, impressora.Marca);
+                            impressoraData.Ativa = 1;
+
+                            impressoraData.Patrimonio = impressora.Patrimonio;
+                            impressoraData.Secretaria = impressora.Secretaria;
+                            impressoraData.AbrSecretaria = impressora.AbrSecretaria;
+                            impressoraData.Depto = impressora.Depto;
+                            impressoraData.Ip = impressora.IP;
+                            impressoraData.InstituicaoId = impressora.InstituicaoId;
+                            impressoraData.Localizacao = impressora.Localizacao;
+
+                            lock (printers)
+                            {
+                                if (impressoraData.PorcentagemBlack <= 20)
+                                {
+                                    printers.Add(impressoraData);
+                                }
+                            }
+
+                            Utils.SalvarResultados(impressoraData, isMono, $"C:\\WFS\\Test-{impressora.Id}.txt", impressora.Marca);
+                        }
+                        else
+                        {
+                            AtualizarStatusImpressoraInativa(impressora.IP, impressora.Id, impressora.Marca);
+                            SalvarErro(impressora, "SNMP vazio");
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Out.WriteLineAsync($"Essa impressora pode estar cadastrada de maneira errada! - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
+                        }
                     }
                     else
                     {
                         AtualizarStatusImpressoraInativa(impressora.IP, impressora.Id, impressora.Marca);
+                        SalvarErro(impressora, "Ping falhou");
 
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Out.WriteLineAsync($"Essa impressora pode estar cadastrada de maneira errada! - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
+                        Console.Out.WriteLineAsync($"Essa impressora não está recebendo ping! - {impressora.IP} - {impressora.Id} - {impressora.Marca}\n");
                     }
                 }
-                else
-                {
-                    AtualizarStatusImpressoraInativa(impressora.IP, impressora.Id, impressora.Marca);
-                }
             });
+
 
             if (printers.Count > 0 && (now >= _startHour && now < _endHour))
             {
@@ -86,9 +104,6 @@ namespace WCS
             stopwatch.Stop();
             Console.WriteLine($"Tempo de execução: {stopwatch.Elapsed}");
         }
-
-
-
 
         private static Dictionary<Oid, AsnType> ObterDadosSnmp(string ip, List<string> oids)
         {
@@ -150,7 +165,7 @@ namespace WCS
                     oids = null;
                 }
             }
-            else 
+            else
             {
                 if (marca == "LEXMARK")
                 {
@@ -260,14 +275,14 @@ namespace WCS
 
         public static void AtualizarStatusImpressoraInativa(string ip, int id, string marca)
         {
-            using (var dbContext = new PrinterMonitoringContext()) 
+            using (var dbContext = new PrinterMonitoringContext())
             {
                 var impressoraExistente = dbContext.PrinterMonitoring
                                                    .FirstOrDefault(p => p.Ip == ip);
                 if (impressoraExistente != null)
                 {
                     impressoraExistente.Ativa = 0;
-                    dbContext.SaveChanges(); 
+                    dbContext.SaveChanges();
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Out.WriteLineAsync($"Impressora inativa e SALVA - {ip} - {id} - {marca}\n");
@@ -301,6 +316,84 @@ namespace WCS
             {
                 Utils.Log($"Erro no ping: {ex.Message}");
                 return false;
+            }
+        }
+        static void SalvarErro(dynamic impressora, string motivo)
+        {
+            int patrimonio = impressora.Patrimonio;
+
+            using (var context = new PrinterMonitoringContext())
+            {
+                var impressoraInativa = context.PrinterMonitoring
+                    .AsEnumerable()
+                    .FirstOrDefault(p => p.Patrimonio == patrimonio && p.Ativa == 0);
+
+                if (impressoraInativa == null && !Utils.ImpressoraJaRegistradaComoErro(patrimonio))
+                {
+                    var erro = new ErrosImpressoras
+                    {
+                        Patrimonio = patrimonio,
+                        Ip = impressora.IP,
+                        Marca = impressora.Marca,
+                        Modelo = impressora.Modelo,
+                        Secretaria = impressora.Secretaria,
+                        AbrSecretaria = impressora.AbrSecretaria,
+                        Depto = impressora.Depto,
+                        InstituicaoId = impressora.InstituicaoId,
+                        Localizacao = impressora.Localizacao,
+                        Motivo = motivo,
+                    };
+
+                    Utils.SalvarErroNoBanco(erro);
+
+                    Console.WriteLine($"A impressora {impressora.Patrimonio} foi salva na tabela de erros");
+                }
+            }
+        }
+
+        static void SalvarImpressoraUSB(dynamic impressora)
+        {
+            int patrimonio = impressora.Patrimonio;
+
+            using (var context = new PrinterMonitoringContext())
+            {
+                var impressoraInativa = context.PrinterMonitoring
+                    .AsEnumerable()
+                    .FirstOrDefault(p => p.Patrimonio == patrimonio);
+
+                if (impressoraInativa == null && !Utils.ImpressoraJaRegistradaComoUSB(patrimonio))
+                {
+                    var usb = new ImpressorasUSB
+                    {
+                        Patrimonio = patrimonio,
+                        Ip = impressora.IP,
+                        Marca = impressora.Marca,
+                        Modelo = impressora.Modelo,
+                        Secretaria = impressora.Secretaria,
+                        AbrSecretaria = impressora.AbrSecretaria,
+                        Depto = impressora.Depto,
+                        InstituicaoId = impressora.InstituicaoId,
+                        Localizacao = impressora.Localizacao,
+                    };
+
+                    Utils.SalvarImpressoraUSBNoBanco(usb);
+
+                    Console.WriteLine($"Impressora {impressora.Patrimonio} salva na tabela de USB");
+                }
+            }
+        }
+
+        static void RemoverDaTabelaDeErros(int patrimonio)
+        {
+            using (var context = new PrinterMonitoringContext())
+            {
+                var erro = context.ErrosImpressoras.FirstOrDefault(e => e.Patrimonio == patrimonio);
+                if (erro != null)
+                {
+                    context.ErrosImpressoras.Remove(erro);
+                    context.SaveChanges();
+                    Console.WriteLine($"Impressora {patrimonio} removida da tabela de erros.");
+                }
             }
         }
     }
